@@ -47,6 +47,25 @@ function preload() {
 
 	this.load.image('pint1', '/pix/pint1.png');
 	this.load.image('pint2', '/pix/pint2.png');
+
+	this.load.image('splash1', '/pix/splash1.png');
+	this.load.image('splash2', '/pix/splash2.png');
+	this.load.image('splash3', '/pix/splash3.png');
+	this.load.image('splash4', '/pix/splash4.png');
+	this.load.image('splash5', '/pix/splash5.png');
+	this.load.image('splash6', '/pix/splash6.png');
+	this.load.image('splash7', '/pix/splash7.png');
+	this.load.image('splash8', '/pix/splash8.png');
+	this.load.image('splash9', '/pix/splash9.png');
+	this.load.image('splash10', '/pix/splash10.png');
+	this.load.image('splash11', '/pix/splash11.png');
+	this.load.image('splash12', '/pix/splash12.png');
+
+	this.load.image('ball1', '/pix/ball1.png');
+	this.load.image('ball2', '/pix/ball2.png');
+	this.load.image('ball3', '/pix/ball3.png');
+	this.load.image('ball4', '/pix/ball4.png');
+	this.load.image('ball5', '/pix/ball5.png');
 }
 
 function create() {
