@@ -70,22 +70,21 @@ function create() {
 	this.background.anims.play('background');
 
 
-	player = this.physics.add.image(400, 50, 'player').setImmovable(true);
-	player.body.allowGravity = false;
-	player.setCollideWorldBounds(true);
+    player = this.physics.add.image(400, 50, 'player').setImmovable(true);
+    player.body.allowGravity = false;
+    player.setCollideWorldBounds(true);
 
-	
-	cursors = this.input.keyboard.createCursorKeys();
+    cursors = this.input.keyboard.createCursorKeys();
 
-	keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
+    keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
 
-	keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
+    keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
 
     Math.ceil(Math.random() * 800) + 600
 
-	rock1 = this.physics.add.sprite(Math.ceil(Math.random() * 600) + 600, Math.ceil(Math.random() * 800), 'rock1');
-    rock2 = this.physics.add.sprite(Math.ceil(Math.random() * 600) + 600, Math.ceil(Math.random() * 800), 'rock2');
-    rock3 = this.physics.add.sprite(Math.ceil(Math.random() * 600) + 600, Math.ceil(Math.random() * 800), 'rock3');
+    rock1 = this.physics.add.sprite(Math.ceil(Math.random() * 2200) + 600, Math.ceil(Math.random() * 800), 'rock1');
+    rock2 = this.physics.add.sprite(Math.ceil(Math.random() * 2200) + 600, Math.ceil(Math.random() * 800), 'rock2');
+    rock3 = this.physics.add.sprite(Math.ceil(Math.random() * 2200) + 600, Math.ceil(Math.random() * 800), 'rock3');
 
     beer = this.physics.add.sprite(Math.ceil(Math.random() * 600) + 600, Math.ceil(Math.random() * 800), 'pint1');
 
