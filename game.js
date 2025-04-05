@@ -1,5 +1,8 @@
 const framerate = 4;
 const fallSpeed = -250;
+const despawn = -300;
+
+let isChugging = false;
 
 const config = {
 	type: Phaser.AUTO,
@@ -28,9 +31,8 @@ let isDrunk = true;
 function preload() {
 	this.load.image('player', '/pix/dwa1.png');
 	this.load.image('rock1', '/pix/rock_60.png');
-	this.load.image('rock2', '/pix/rock_120.png');
-	this.load.image('rock3', '/pix/rock_240.png');
-
+    this.load.image('rock2', '/pix/rock_120.png');
+    this.load.image('rock3', '/pix/rock_240.png');
 	// bg stuff
 	this.load.image('wall1', '/pix/wall1.png');
 	this.load.image('wall2', '/pix/wall2.png');
@@ -40,8 +42,6 @@ function preload() {
 	// character sprite
 	this.load.image('dwa1', '/pix/dwa1.png');
 	this.load.image('dwa2', '/pix/dwa2.png');
-
-	this.load.image('beer', '/pix/coin1.pixi');
 
 	this.load.image('pint1', '/pix/pint1.png');
 	this.load.image('pint2', '/pix/pint2.png');
@@ -57,7 +57,7 @@ function create() {
 	});
 
 	this.anims.create({
-		key> 'pint',
+		key: 'pint',
 		frames: [{key: 'pint1'},{key: 'pint2'}],
 		framerate: framerate,
 		repeat: -1
@@ -112,39 +112,58 @@ function create() {
 		rock.setVelocityY(fallSpeed);
 	});
 
-    //friends =
+    beers = this.physics.add.group({
+		key: 'pint1',
+		repeat: 0,
+		setXY: { x: Math.ceil(Math.random() * 600) + 600, y: Math.ceil(Math.random() * 800), stepX: 100 }
+	});
+
+    beers.children.iterate(rock => {
+		rock.setVelocityY(fallSpeed);
+	});
 
 	this.physics.add.overlap(player, rock1, hitObstacle, null, this);
     this.physics.add.overlap(player, rock2, hitObstacle, null, this);
     this.physics.add.overlap(player, rock3, hitObstacle, null, this);
+    this.physics.add.overlap(player, beers, drinkBeer);
 }
 
 function update() {
 	// Horizontal player control
 	if (cursors.left.isDown) {
+        isChugging = false;
 		player.setVelocityX(-300);
 	} else if (cursors.right.isDown) {
+        isChugging = false;
 		player.setVelocityX(300);
 	} else {
 		player.setVelocityX(0);
 	}
 
-	spawnRocks();
-
-	if (Phaser.Input.Keyboard.JustDown(keyC)) {
-		console.log("Chugging away");
-        p = p < 4 ? p + 0.08 : 4;
-	}
+    if (isChugging) {
+        p = p < 4 ? p + 0.005 : 4;
+    }
 
     isDrunk = p > 0;
-    console.log("Current promille: ", p);
+
+	spawnRocks();
+    spawnBeer();
+}
+
+function spawnBeer() {
+    beers.children.iterate(beer => {
+        if (beer.y < despawn) {
+			beer.y = Math.ceil(Math.random() * 800) + 600;
+			beer.x = Phaser.Math.Between(50, 750);
+        }
+    });
 }
 
 function spawnRocks(){
-    const despawn = -300;
 
     // Rock 1
     if (keyF.isDown && isDrunk) {
+        isChugging = false;
 		rock1.children.iterate(rock => {
             p = p > 0 ? p - 0.005 : 0;
 			rock.setVelocityY(0);
@@ -164,6 +183,7 @@ function spawnRocks(){
 
     // Rock 2
     if (keyF.isDown && isDrunk) {
+        isChugging = false;
 		rock2.children.iterate(rock => {
             p = p > 0 ? p - 0.005 : 0;
 			rock.setVelocityY(0);
@@ -183,6 +203,7 @@ function spawnRocks(){
 
     // Rock 3
     if (keyF.isDown && isDrunk) {
+        isChugging = false;
 		rock3.children.iterate(rock => {
             p = p > 0 ? p - 0.005 : 0;
 			rock.setVelocityY(0);
@@ -199,6 +220,10 @@ function spawnRocks(){
 			stone.x = Phaser.Math.Between(50, 750);
 		}
 	});
+}
+
+function drinkBeer(){
+    isChugging = true;
 }
 
 function hitObstacle(player, stone1) {
