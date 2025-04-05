@@ -21,8 +21,8 @@ const game = new Phaser.Game(config);
 let player, cursors, enemies;
 
 function preload() {
-    this.load.image('player', '/assets/coin1.png');
-    this.load.image('enemy', '/assets/coin3.png');
+    this.load.image('player', '/Pix/dwa1.png');
+    this.load.image('enemy', '/Pix/dwa2.png');
 }
 
 function create() {
@@ -32,6 +32,11 @@ function create() {
 
     cursors = this.input.keyboard.createCursorKeys();
 
+    keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
+
+    // Listen for C being tapped once
+    keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
+
     enemies = this.physics.add.group({
         key: 'enemy',
         repeat: 5,
@@ -39,7 +44,7 @@ function create() {
     });
 
     enemies.children.iterate(enemy => {
-        enemy.setVelocityY(-100); // Enemies rise upward
+        enemy.setVelocityY(-100);
     });
 
     this.physics.add.overlap(player, enemies, hitObstacle, null, this);
@@ -53,6 +58,20 @@ function update() {
         player.setVelocityX(300);
     } else {
         player.setVelocityX(0);
+    }
+
+    if (keyF.isDown) {
+        enemies.children.iterate(enemy => {
+            enemy.setVelocityY(0); // Enemies rise upward
+        });
+    } else {
+        enemies.children.iterate(enemy => {
+            enemy.setVelocityY(-100); // Enemies rise upward
+        });
+    }
+
+    if (Phaser.Input.Keyboard.JustDown(keyC)) {
+        console.log("Chugging away");
     }
 
     // Reset enemies that go off-screen
