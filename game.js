@@ -2,6 +2,8 @@
 
 Stuffs to do tomorrow when sober:
 
+Fix bugg that somethimes happen when you start moving and flaxxing after chugging
+
 Collition boxes
 
 Musaka
