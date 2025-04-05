@@ -72,6 +72,10 @@ function preload() {
 	
 	this.load.image('drink1', '/pix/drink1.png');
 	this.load.image('drink2', '/pix/drink2.png');
+	
+	this.load.image('flax1', '/pix/flax1.png');
+	this.load.image('flax2', '/pix/flax2.png');
+
 }
 
 function create() {
@@ -90,6 +94,12 @@ function create() {
 		repeat: -1
 	});
 
+	this.anims.create({
+		key: 'flax',
+		frames: [{key: 'flax1'}, {key: 'flax2'}],
+		framerate: framerate,
+		repeat -1
+	});
 
 	this.anims.create({
 		key: 'dwa',
