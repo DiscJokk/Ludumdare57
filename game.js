@@ -38,16 +38,23 @@ function preload() {
 }
 
 function create() {
-	player = this.physics.add.image(400, 50, 'player').setImmovable(true);
-	player.body.allowGravity = false;
-	player.setCollideWorldBounds(true);
-
+	
 	this.anims.create({
 		key: 'background',
 		frames: [{key: 'wall1'}, {key: 'wall2'}, {key: 'wall3'}, {key: 'wall4'}],
 		framerate: framerate,
 		repeat: -1
 	});
+
+	// no idea what this will do....
+	this.background = this.physics.add.sprite(0, 0, 'wall1');
+	this.background.anims.play('background');
+
+
+	player = this.physics.add.image(400, 50, 'player').setImmovable(true);
+	player.body.allowGravity = false;
+	player.setCollideWorldBounds(true);
+
 	
 	cursors = this.input.keyboard.createCursorKeys();
 
