@@ -1,8 +1,10 @@
 const framerate = 4;
-const fallSpeed = -250;
+const fallSpeed = 10;
 const despawn = -300;
 
 let isChugging = false;
+let isFlaxxing = false;
+let isGameOver = false;
 
 const config = {
 	type: Phaser.AUTO,
@@ -77,40 +79,13 @@ function create() {
 
 	keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
 
-	// Listen for C being tapped once
 	keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
 
     Math.ceil(Math.random() * 800) + 600
 
-	rock1 = this.physics.add.group({
-		key: 'rock1',
-		repeat: 0,
-		setXY: { x: Math.ceil(Math.random() * 600) + 600, y: Math.ceil(Math.random() * 800), stepX: 100 }
-	});
-
-    rock2 = this.physics.add.group({
-		key: 'rock2',
-		repeat: 0,
-		setXY: { x: Math.ceil(Math.random() * 600) + 600, y: Math.ceil(Math.random() * 800), stepX: 100 }
-	});
-
-    rock3 = this.physics.add.group({
-		key: 'rock3',
-		repeat: 0,
-		setXY: { x: Math.ceil(Math.random() * 600) + 600, y: Math.ceil(Math.random() * 800), stepX: 100 }
-	});
-
-	rock1.children.iterate(rock => {
-		rock.setVelocityY(fallSpeed);
-	});
-
-    rock2.children.iterate(rock => {
-		rock.setVelocityY(fallSpeed);
-	});
-
-    rock3.children.iterate(rock => {
-		rock.setVelocityY(fallSpeed);
-	});
+	rock1 = this.physics.add.sprite(Math.ceil(Math.random() * 600) + 600, Math.ceil(Math.random() * 800), 'rock1');
+    rock2 = this.physics.add.sprite(Math.ceil(Math.random() * 600) + 600, Math.ceil(Math.random() * 800), 'rock2');
+    rock3 = this.physics.add.sprite(Math.ceil(Math.random() * 600) + 600, Math.ceil(Math.random() * 800), 'rock3');
 
     beers = this.physics.add.group({
 		key: 'pint1',
@@ -144,9 +119,25 @@ function update() {
         p = p < 4 ? p + 0.005 : 4;
     }
 
+    if (!isFlaxxing && !isGameOver) {
+        rock1.y -= fallSpeed;
+        rock2.y -= fallSpeed;
+        rock3.y -= fallSpeed;
+    } else {
+        p = p > 0 ? p - 0.005 : 0;
+    }
+
+    if (keyF.isDown && isDrunk) {
+        isFlaxxing = true;
+    } else {
+        isFlaxxing = false;
+    }
+
     isDrunk = p > 0;
 
-	spawnRocks();
+
+    // checkRockCollide()
+	doRockStuffs();
     spawnBeer();
 }
 
@@ -159,9 +150,27 @@ function spawnBeer() {
     });
 }
 
-function spawnRocks(){
+function doRockStuffs(){
 
     // Rock 1
+    if (rock1.y < despawn) {
+        rock1.y = Math.ceil(Math.random() * 800) + 600;
+        rock1.x = Phaser.Math.Between(50, 750);
+    }
+
+    // Rock2
+    if (rock2.y < despawn) {
+        rock2.y = Math.ceil(Math.random() * 800) + 600;
+        rock2.x = Phaser.Math.Between(50, 750);
+    }
+
+    // Rock3
+    if (rock3.y < despawn) {
+        rock3.y = Math.ceil(Math.random() * 800) + 600;
+        rock3.x = Phaser.Math.Between(50, 750);
+    }
+
+    /* Rock 1
     if (keyF.isDown && isDrunk) {
         isChugging = false;
 		rock1.children.iterate(rock => {
@@ -179,7 +188,7 @@ function spawnRocks(){
 			stone.y = Math.ceil(Math.random() * 800) + 600;
 			stone.x = Phaser.Math.Between(50, 750);
 		}
-	});
+	}); 
 
     // Rock 2
     if (keyF.isDown && isDrunk) {
@@ -219,7 +228,7 @@ function spawnRocks(){
 			stone.y = Math.ceil(Math.random() * 800) + 600;
 			stone.x = Phaser.Math.Between(50, 750);
 		}
-	});
+	}); */
 }
 
 function drinkBeer(){
@@ -228,6 +237,7 @@ function drinkBeer(){
 
 function hitObstacle(player, stone1) {
 	// Basic reaction for now — stop everything
+    isGameOver = true;
 	this.physics.pause();
 	player.setTint(0xff0000);
 	console.log("💥 You hit an obstacle!");
