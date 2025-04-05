@@ -77,7 +77,7 @@ function preload() {
 	this.load.image('flax1', '/pix/flax1.png');
 	this.load.image('flax2', '/pix/flax2.png');
 
-	this.load.image('pint_empty', '/pix/pint_empty');
+	this.load.image('pint_empty', '/pix/pint_empty1.png');
 }
 
 function create() {
@@ -173,6 +173,8 @@ function create() {
 
 	beer = this.physics.add.sprite(Math.ceil(Math.random() * 600) + 600, Math.ceil(Math.random() * 800), 'pint1');
 
+    emptyBeer = this.physics.add.sprite(300, 300, 'pint_empty');
+
 	// Do not tuch!
 	this.splash = this.physics.add.sprite(400, 400, 'splash1');
 
@@ -242,6 +244,7 @@ function update() {
             rock2.y -= fallSpeed;
             rock3.y -= fallSpeed;
             beer.y -= fallSpeed;
+            emptyBeer.y -= fallSpeed;
             
             if (player.anims.currentAnim?.key === 'flax') {
                 flaxFlag = false;
@@ -274,6 +277,8 @@ function update() {
 function restoreChugging(){
     if (player.anims.currentAnim?.key === 'drink') {
         player.anims.play('dwa');
+        emptyBeer.x = player.x
+        emptyBeer.y = player.y;
     }
     isChugging = false;
 }
