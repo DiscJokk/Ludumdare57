@@ -28,8 +28,8 @@ let isDrunk = true;
 function preload() {
 	this.load.image('player', '/pix/dwa1.png');
 	this.load.image('rock1', '/pix/rock_60.png');
-    this.load.image('rock2', '/pix/rock_120.png');
-    this.load.image('rock3', '/pix/rock_240.png');
+	this.load.image('rock2', '/pix/rock_120.png');
+	this.load.image('rock3', '/pix/rock_240.png');
 
 	// bg stuff
 	this.load.image('wall1', '/pix/wall1.png');
@@ -41,7 +41,10 @@ function preload() {
 	this.load.image('dwa1', '/pix/dwa1.png');
 	this.load.image('dwa2', '/pix/dwa2.png');
 
-    this.load.image('beer', '/pix/coin1.pix');
+	this.load.image('beer', '/pix/coin1.pixi');
+
+	this.load.image('pint1', '/pix/pint1.png');
+	this.load.image('pint2', '/pix/pint2.png');
 }
 
 function create() {
@@ -49,6 +52,13 @@ function create() {
 	this.anims.create({
 		key: 'background',
 		frames: [{key: 'wall1'}, {key: 'wall2'}, {key: 'wall3'}, {key: 'wall4'}],
+		framerate: framerate,
+		repeat: -1
+	});
+
+	this.anims.create({
+		key> 'pint',
+		frames: [{key: 'pint1'},{key: 'pint2'}],
 		framerate: framerate,
 		repeat: -1
 	});
