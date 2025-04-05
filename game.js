@@ -4,6 +4,10 @@ Stuffs to do tomorrow when sober:
 
 Fix bugg that somethimes happen when you start moving and flaxxing after chugging
 
+Fix bug where sometimes two empty beers appear
+
+Add some sort of instruction that tells to use F and C for flaxx and chugg
+
 Collition boxes
 
 Musaka
@@ -213,7 +217,7 @@ function create() {
 
 	beer = this.physics.add.sprite(Math.ceil(Math.random() * 600) + 600, Math.ceil(Math.random() * 800), 'pint1');
 
-    emptyBeer = this.physics.add.sprite(300, 300, 'pint_empty');
+    emptyBeer = this.physics.add.sprite(-300, -300, 'pint_empty');
 
 	// Do not tuch!
 	this.splash = this.physics.add.sprite(400, 400, 'splash1');
