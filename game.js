@@ -77,6 +77,7 @@ function preload() {
 	this.load.image('flax1', '/pix/flax1.png');
 	this.load.image('flax2', '/pix/flax2.png');
 
+	this.load.image('pint_empty', '/pix/pint_empty');
 }
 
 function create() {
