@@ -1,3 +1,41 @@
+/*
+
+Stuffs to do tomorrow when sober:
+
+Collition boxes
+
+Musaka
+
+Sound fxs
+
+Power bar
+
+GO splash
+
+GO anim
+
+Depth counter
+
+Pause background when flaxxxing
+
+
+Stuffs to do tomporrow when drunk:
+
+Velocity
+
+Nidhog
+
+Make powerbar funny beer stuffs
+
+Pitch up beer chug sound thingy
+
+Full screen mode
+
+Go to the promise land
+
+*/
+
+
 const framerate = 4;
 const fallSpeed = 10;
 const despawn = -300;
