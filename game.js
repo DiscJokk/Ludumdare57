@@ -5,6 +5,9 @@ const despawn = -300;
 let isChugging = false;
 let isFlaxxing = false;
 let isGameOver = false;
+let isSplashing = true;
+let isBalling = false;
+let splashPhase = 0;
 
 const config = {
 	type: Phaser.AUTO,
@@ -31,7 +34,7 @@ let p = 4;
 let isDrunk = true;
 
 function preload() {
-	this.load.image('player', '/pix/dwa1.png');
+
 	this.load.image('rock1', '/pix/rock_60.png');
 	this.load.image('rock2', '/pix/rock_120.png');
 	this.load.image('rock3', '/pix/rock_240.png');
@@ -85,21 +88,29 @@ function create() {
 	});
 
 
+    this.anims.create({
+		key: 'dwa',
+		frames: [{key: 'dwa1'},{key: 'dwa2'}],
+		framerate: framerate,
+		repeat: -1
+	});
+
+
 	this.anims.create({
 		key: 'splash',
 		frames: [
-			{key: 'spash1'},
-			{key: 'spash2'},
-			{key: 'spash3'},
-			{key: 'spash4'},
-			{key: 'spash5'},
-			{key: 'spash6'},
-			{key: 'spash7'},
-			{key: 'spash8'},
-			{key: 'spash9'},
-			{key: 'spash10'},
-			{key: 'spash11'},
-			{key: 'spash12'},
+			{key: 'splash1'},
+			{key: 'splash2'},
+			{key: 'splash3'},
+			{key: 'splash4'},
+			{key: 'splash5'},
+			{key: 'splash6'},
+			{key: 'splash7'},
+			{key: 'splash8'},
+			{key: 'splash9'},
+			{key: 'splash10'},
+			{key: 'splash11'},
+			{key: 'splash12'},
 		],
 		framerate: framerate,
 		repeat: 0
@@ -108,21 +119,23 @@ function create() {
 	this.anims.create({
 		key: 'ball',
 		frames: [
-			{key: 'ball1'},
-			{key: 'ball2'},
+            {key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},
+			
+            {key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},
+            {key: 'ball2'},
 			{key: 'ball3'},
 			{key: 'ball4'},
 			{key: 'ball5'},
 		],
 		framerate: framerate,
-		repeat: 0;
+		repeat: 0
 	});
 
 	// no idea what this will do....
 	this.background = this.physics.add.sprite(400, 300, 'wall1');
 	this.background.anims.play('background');
 
-	player = this.physics.add.image(400, 50, 'player').setImmovable(true);
+	player = this.physics.add.sprite(400, 50, 'ball4').setImmovable(true);
 	player.body.allowGravity = false;
 	player.setCollideWorldBounds(true);
 	
@@ -132,13 +145,14 @@ function create() {
 
 	keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
 
-	Math.ceil(Math.random() * 800) + 600
-
 	rock1 = this.physics.add.sprite(Math.ceil(Math.random() * 2200) + 600, Math.ceil(Math.random() * 800), 'rock1');
 	rock2 = this.physics.add.sprite(Math.ceil(Math.random() * 2200) + 600, Math.ceil(Math.random() * 800), 'rock2');
 	rock3 = this.physics.add.sprite(Math.ceil(Math.random() * 2200) + 600, Math.ceil(Math.random() * 800), 'rock3');
 
 	beer = this.physics.add.sprite(Math.ceil(Math.random() * 600) + 600, Math.ceil(Math.random() * 800), 'pint1');
+
+    // Do not tuch!
+    this.splash = this.physics.add.sprite(400, 400, 'splash1');
 
 	this.physics.add.overlap(player, rock1, hitObstacle, null, this);
 	this.physics.add.overlap(player, rock2, hitObstacle, null, this);
@@ -147,42 +161,83 @@ function create() {
 }
 
 function update() {
-	// Horizontal player control
-	if (cursors.left.isDown) {
-        isChugging = false;
-		player.setVelocityX(-300);
-	} else if (cursors.right.isDown) {
-        isChugging = false;
-		player.setVelocityX(300);
-	} else {
-		player.setVelocityX(0);
-	}
-
- 	if (isChugging) {
-		p = p < 4 ? p + 0.005 : 4;
-	}
-
-	if (!isFlaxxing && !isGameOver) {
-		rock1.y -= fallSpeed;
-		rock2.y -= fallSpeed;
- 		rock3.y -= fallSpeed;
-		beer.y -= fallSpeed;	
-	} else {
- 		p = p > 0 ? p - 0.005 : 0;
-	}
-
-	if (keyF.isDown && isDrunk) {
-		isFlaxxing = true;
-	} else {
-		isFlaxxing = false;
-	}
-
-	isDrunk = p > 0;
+    console.log("splashPhase: ", splashPhase);
+	
+    if (splashPhase == 0) {
+        this.input.keyboard.on('keydown', (event) => {
+            if (splashPhase == 0) {
+                this.splash.anims.play('splash');
+            }
+        });
+        
+        this.splash.on('animationcomplete', function (animation, frame) {
+            splashPhase = 1;
+        });
+    }
 
 
-	// checkRockCollide()
-	doRockStuffs();
-	doBeerStuffs();
+    if (splashPhase > 0) {
+        this.splash.y -= fallSpeed;
+    }
+
+    if (splashPhase == 1) {
+        player.anims.play('ball');
+        splashPhase = 2;
+    }
+
+    if (splashPhase == 2) {
+        player.on('animationcomplete', function (animation, frame) {
+            splashPhase = 3;
+        });
+        
+    }
+
+
+    if (splashPhase == 3) {
+        player.anims.play('dwa');
+        splashPhase = 4;
+    }
+
+
+    if (splashPhase == 4) {
+        
+                if (cursors.left.isDown) {
+                    isChugging = false;
+                    player.setVelocityX(-300);
+                } else if (cursors.right.isDown) {
+                    isChugging = false;
+                    player.setVelocityX(300);
+                } else {
+                    player.setVelocityX(0);
+                }
+        
+                if (isChugging) {
+                    p = p < 4 ? p + 0.005 : 4;
+                }
+        
+                if (!isFlaxxing && !isGameOver) {
+                    rock1.y -= fallSpeed;
+                    rock2.y -= fallSpeed;
+                    rock3.y -= fallSpeed;
+                    beer.y -= fallSpeed;	
+                } else {
+                    p = p > 0 ? p - 0.005 : 0;
+                }
+        
+                if (keyF.isDown && isDrunk) {
+                    isFlaxxing = true;
+                } else {
+                    isFlaxxing = false;
+                }
+        
+                isDrunk = p > 0;
+        
+        
+                // checkRockCollide()
+                doRockStuffs();
+                doBeerStuffs();
+        
+    }
 }
 
 function doBeerStuffs() {
