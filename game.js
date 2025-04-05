@@ -68,7 +68,10 @@ function preload() {
 	this.load.image('ball2', '/pix/ball2.png');
 	this.load.image('ball3', '/pix/ball3.png');
 	this.load.image('ball4', '/pix/ball4.png');
-	this.load.image('ball5', '/pix/ball5.png');
+	this.load.image('ball5', '/pix/ball5.png')
+	
+	this.load.image('drink1', '/pix/drink.png');
+	this.load.image('drink2', '/pix/drink.png'):
 }
 
 function create() {
@@ -91,6 +94,13 @@ function create() {
 	this.anims.create({
 		key: 'dwa',
 		frames: [{key: 'dwa1'},{key: 'dwa2'}],
+		framerate: framerate,
+		repeat: -1
+	});
+
+	this.anims.create({
+		key: 'drink'
+		frames: [{key: 'drink1'},{key: 'drink2'}],
 		framerate: framerate,
 		repeat: -1
 	});
