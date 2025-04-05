@@ -84,6 +84,40 @@ function create() {
 		repeat: -1
 	});
 
+
+	this.anims.create({
+		key: 'splash',
+		frames: [
+			{key: 'spash1'},
+			{key: 'spash2'},
+			{key: 'spash3'},
+			{key: 'spash4'},
+			{key: 'spash5'},
+			{key: 'spash6'},
+			{key: 'spash7'},
+			{key: 'spash8'},
+			{key: 'spash9'},
+			{key: 'spash10'},
+			{key: 'spash11'},
+			{key: 'spash12'},
+		],
+		framerate: framerate,
+		repeat: 0
+	});
+
+	this.anims.create({
+		key: 'ball',
+		frames: [
+			{key: 'ball1'},
+			{key: 'ball2'},
+			{key: 'ball3'},
+			{key: 'ball4'},
+			{key: 'ball5'},
+		],
+		framerate: framerate,
+		repeat: 0;
+	});
+
 	// no idea what this will do....
 	this.background = this.physics.add.sprite(400, 300, 'wall1');
 	this.background.anims.play('background');
