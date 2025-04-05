@@ -88,7 +88,7 @@ function create() {
 	});
 
 
-    this.anims.create({
+	this.anims.create({
 		key: 'dwa',
 		frames: [{key: 'dwa1'},{key: 'dwa2'}],
 		framerate: framerate,
@@ -119,10 +119,10 @@ function create() {
 	this.anims.create({
 		key: 'ball',
 		frames: [
-            {key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},
-			
-            {key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},
-            {key: 'ball2'},
+			{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},
+            {key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{
+            key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},
+			{key: 'ball2'},
 			{key: 'ball3'},
 			{key: 'ball4'},
 			{key: 'ball5'},
@@ -151,8 +151,8 @@ function create() {
 
 	beer = this.physics.add.sprite(Math.ceil(Math.random() * 600) + 600, Math.ceil(Math.random() * 800), 'pint1');
 
-    // Do not tuch!
-    this.splash = this.physics.add.sprite(400, 400, 'splash1');
+	// Do not tuch!
+	this.splash = this.physics.add.sprite(400, 400, 'splash1');
 
 	this.physics.add.overlap(player, rock1, hitObstacle, null, this);
 	this.physics.add.overlap(player, rock2, hitObstacle, null, this);
@@ -161,83 +161,81 @@ function create() {
 }
 
 function update() {
-    console.log("splashPhase: ", splashPhase);
+	console.log("splashPhase: ", splashPhase);
 	
-    if (splashPhase == 0) {
-        this.input.keyboard.on('keydown', (event) => {
-            if (splashPhase == 0) {
-                this.splash.anims.play('splash');
-            }
-        });
-        
-        this.splash.on('animationcomplete', function (animation, frame) {
-            splashPhase = 1;
-        });
-    }
+	if (splashPhase == 0) {
+		this.input.keyboard.on('keydown', (event) => {
+			if (splashPhase == 0) {
+				this.splash.anims.play('splash');
+			}
+		});
+		
+		this.splash.on('animationcomplete', function (animation, frame) {
+			splashPhase = 1;
+		});
+	}
 
 
-    if (splashPhase > 0) {
-        this.splash.y -= fallSpeed;
-    }
+	if (splashPhase > 0) {
+		this.splash.y -= fallSpeed;
+	}
 
-    if (splashPhase == 1) {
-        player.anims.play('ball');
-        splashPhase = 2;
-    }
+	if (splashPhase == 1) {
+		player.anims.play('ball');
+		splashPhase = 2;
+	}
 
-    if (splashPhase == 2) {
-        player.on('animationcomplete', function (animation, frame) {
-            splashPhase = 3;
-        });
-        
-    }
-
-
-    if (splashPhase == 3) {
-        player.anims.play('dwa');
-        splashPhase = 4;
-    }
+	if (splashPhase == 2) {
+		player.on('animationcomplete', function (animation, frame) {
+			splashPhase = 3;
+		});
+		
+	}
 
 
-    if (splashPhase == 4) {
-        
-                if (cursors.left.isDown) {
-                    isChugging = false;
-                    player.setVelocityX(-300);
-                } else if (cursors.right.isDown) {
-                    isChugging = false;
-                    player.setVelocityX(300);
-                } else {
-                    player.setVelocityX(0);
-                }
-        
-                if (isChugging) {
-                    p = p < 4 ? p + 0.005 : 4;
-                }
-        
-                if (!isFlaxxing && !isGameOver) {
-                    rock1.y -= fallSpeed;
-                    rock2.y -= fallSpeed;
-                    rock3.y -= fallSpeed;
-                    beer.y -= fallSpeed;	
-                } else {
-                    p = p > 0 ? p - 0.005 : 0;
-                }
-        
-                if (keyF.isDown && isDrunk) {
-                    isFlaxxing = true;
-                } else {
-                    isFlaxxing = false;
-                }
-        
-                isDrunk = p > 0;
-        
-        
-                // checkRockCollide()
-                doRockStuffs();
-                doBeerStuffs();
-        
-    }
+	if (splashPhase == 3) {
+		player.anims.play('dwa');
+		splashPhase = 4;
+	}
+
+
+	if (splashPhase == 4) {
+		
+        if (cursors.left.isDown) {
+            isChugging = false;
+            player.setVelocityX(-300);
+        } else if (cursors.right.isDown) {
+            isChugging = false;
+            player.setVelocityX(300);
+        } else {
+            player.setVelocityX(0);
+        }
+
+        if (isChugging) {
+            p = p < 4 ? p + 0.005 : 4;
+        }
+
+        if (!isFlaxxing && !isGameOver) {
+            rock1.y -= fallSpeed;
+            rock2.y -= fallSpeed;
+            rock3.y -= fallSpeed;
+            beer.y -= fallSpeed;	
+        } else {
+            p = p > 0 ? p - 0.005 : 0;
+        }
+
+        if (keyF.isDown && isDrunk) {
+            isFlaxxing = true;
+        } else {
+            isFlaxxing = false;
+        }
+
+        isDrunk = p > 0;
+
+        doRockStuffs();
+        doBeerStuffs();
+		
+	}
 }
 
 function doBeerStuffs() {
@@ -258,7 +256,7 @@ function doRockStuffs(){
 
 	// Rock2
 	if (rock2.y < despawn) {
-	    	rock2.y = Math.ceil(Math.random() * 800) + 600;
+			rock2.y = Math.ceil(Math.random() * 800) + 600;
 		rock2.x = Phaser.Math.Between(50, 750);
 	}
 
