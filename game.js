@@ -1,3 +1,5 @@
+let framerate = 6;
+
 const config = {
 	type: Phaser.AUTO,
 	width: 800,
@@ -40,6 +42,13 @@ function create() {
 	player.body.allowGravity = false;
 	player.setCollideWorldBounds(true);
 
+	this.anims.create({
+		key: 'background',
+		frames: [{key: 'wall1'}, {key: 'wall2'}, {key: 'wall3'}, {key: 'wall4'}],
+		framerate: framerate,
+		repeat: -1
+	});
+	
 	cursors = this.input.keyboard.createCursorKeys();
 
 	keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
