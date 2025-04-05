@@ -8,6 +8,7 @@ let isGameOver = false;
 let isSplashing = true;
 let isBalling = false;
 let splashPhase = 0;
+let flaxFlag = false;
 
 const config = {
 	type: Phaser.AUTO,
@@ -98,7 +99,7 @@ function create() {
 		key: 'flax',
 		frames: [{key: 'flax1'}, {key: 'flax2'}],
 		framerate: framerate,
-		repeat -1
+		repeat: -1
 	});
 
 	this.anims.create({
@@ -239,7 +240,12 @@ function update() {
             rock1.y -= fallSpeed;
             rock2.y -= fallSpeed;
             rock3.y -= fallSpeed;
-            beer.y -= fallSpeed;	
+            beer.y -= fallSpeed;
+            
+            if (player.anims.currentAnim?.key === 'flax') {
+                flaxFlag = false;
+                player.anims.play('dwa');
+            }
         }
 
         if (isFlaxxing) {
@@ -247,6 +253,10 @@ function update() {
         }
 
         if (keyF.isDown && isDrunk) {
+            if (!flaxFlag) {
+                player.anims.play('flax');
+                flaxFlag = true;
+            }
             isFlaxxing = true;
         } else {
             isFlaxxing = false;
