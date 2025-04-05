@@ -87,20 +87,12 @@ function create() {
     rock2 = this.physics.add.sprite(Math.ceil(Math.random() * 600) + 600, Math.ceil(Math.random() * 800), 'rock2');
     rock3 = this.physics.add.sprite(Math.ceil(Math.random() * 600) + 600, Math.ceil(Math.random() * 800), 'rock3');
 
-    beers = this.physics.add.group({
-		key: 'pint1',
-		repeat: 0,
-		setXY: { x: Math.ceil(Math.random() * 600) + 600, y: Math.ceil(Math.random() * 800), stepX: 100 }
-	});
-
-    beers.children.iterate(rock => {
-		rock.setVelocityY(fallSpeed);
-	});
+    beer = this.physics.add.sprite(Math.ceil(Math.random() * 600) + 600, Math.ceil(Math.random() * 800), 'pint1');
 
 	this.physics.add.overlap(player, rock1, hitObstacle, null, this);
     this.physics.add.overlap(player, rock2, hitObstacle, null, this);
     this.physics.add.overlap(player, rock3, hitObstacle, null, this);
-    this.physics.add.overlap(player, beers, drinkBeer);
+    this.physics.add.overlap(player, beer, drinkBeer);
 }
 
 function update() {
@@ -123,6 +115,7 @@ function update() {
         rock1.y -= fallSpeed;
         rock2.y -= fallSpeed;
         rock3.y -= fallSpeed;
+        beer.y -= fallSpeed;
     } else {
         p = p > 0 ? p - 0.005 : 0;
     }
@@ -138,16 +131,15 @@ function update() {
 
     // checkRockCollide()
 	doRockStuffs();
-    spawnBeer();
+    doBeerStuffs();
 }
 
-function spawnBeer() {
-    beers.children.iterate(beer => {
-        if (beer.y < despawn) {
-			beer.y = Math.ceil(Math.random() * 800) + 600;
-			beer.x = Phaser.Math.Between(50, 750);
-        }
-    });
+function doBeerStuffs() {
+
+    if (beer.y < despawn) {
+        beer.y = Math.ceil(Math.random() * 800) + 600;
+        beer.x = Phaser.Math.Between(50, 750);
+    }
 }
 
 function doRockStuffs(){
@@ -169,66 +161,6 @@ function doRockStuffs(){
         rock3.y = Math.ceil(Math.random() * 800) + 600;
         rock3.x = Phaser.Math.Between(50, 750);
     }
-
-    /* Rock 1
-    if (keyF.isDown && isDrunk) {
-        isChugging = false;
-		rock1.children.iterate(rock => {
-            p = p > 0 ? p - 0.005 : 0;
-			rock.setVelocityY(0);
-		});
-	} else {
-		rock1.children.iterate(rock => {
-			rock.setVelocityY(fallSpeed);
-		});
-	}
-
-	rock1.children.iterate(stone => {
-		if (stone.y < despawn) {
-			stone.y = Math.ceil(Math.random() * 800) + 600;
-			stone.x = Phaser.Math.Between(50, 750);
-		}
-	}); 
-
-    // Rock 2
-    if (keyF.isDown && isDrunk) {
-        isChugging = false;
-		rock2.children.iterate(rock => {
-            p = p > 0 ? p - 0.005 : 0;
-			rock.setVelocityY(0);
-		});
-	} else {
-		rock2.children.iterate(rock => {
-			rock.setVelocityY(fallSpeed);
-		});
-	}
-
-	rock2.children.iterate(stone => {
-		if (stone.y < despawn) {
-			stone.y = Math.ceil(Math.random() * 800) + 600;
-			stone.x = Phaser.Math.Between(50, 750);
-		}
-	});
-
-    // Rock 3
-    if (keyF.isDown && isDrunk) {
-        isChugging = false;
-		rock3.children.iterate(rock => {
-            p = p > 0 ? p - 0.005 : 0;
-			rock.setVelocityY(0);
-		});
-	} else {
-		rock3.children.iterate(rock => {
-			rock.setVelocityY(fallSpeed);
-		});
-	}
-
-	rock3.children.iterate(stone => {
-		if (stone.y < despawn) {
-			stone.y = Math.ceil(Math.random() * 800) + 600;
-			stone.x = Phaser.Math.Between(50, 750);
-		}
-	}); */
 }
 
 function drinkBeer(){
