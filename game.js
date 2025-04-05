@@ -156,7 +156,7 @@ function create() {
 	this.background = this.physics.add.sprite(400, 300, 'wall1');
 	this.background.anims.play('background');
 
-	player = this.physics.add.sprite(400, 50, 'ball4').setImmovable(true);
+	player = this.physics.add.sprite(400, 150, 'ball4').setImmovable(true);
 	player.body.allowGravity = false;
 	player.setCollideWorldBounds(true);
 	
