@@ -70,8 +70,8 @@ function preload() {
 	this.load.image('ball4', '/pix/ball4.png');
 	this.load.image('ball5', '/pix/ball5.png')
 	
-	this.load.image('drink1', '/pix/drink.png');
-	this.load.image('drink2', '/pix/drink.png'):
+	this.load.image('drink1', '/pix/drink1.png');
+	this.load.image('drink2', '/pix/drink2.png');
 }
 
 function create() {
@@ -99,8 +99,8 @@ function create() {
 	});
 
 	this.anims.create({
-		key: 'drink'
-		frames: [{key: 'drink1'},{key: 'drink2'}],
+		key: 'drink',
+		frames: [{key: 'drink1'}, {key: 'drink2'}],
 		framerate: framerate,
 		repeat: -1
 	});
@@ -155,9 +155,9 @@ function create() {
 
 	keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
 
-	rock1 = this.physics.add.sprite(Math.ceil(Math.random() * 2200) + 600, Math.ceil(Math.random() * 800), 'rock1');
-	rock2 = this.physics.add.sprite(Math.ceil(Math.random() * 2200) + 600, Math.ceil(Math.random() * 800), 'rock2');
-	rock3 = this.physics.add.sprite(Math.ceil(Math.random() * 2200) + 600, Math.ceil(Math.random() * 800), 'rock3');
+	rock1 = this.physics.add.sprite(Math.ceil(Math.random() * 22000) + 600, Math.ceil(Math.random() * 800), 'rock1');
+	rock2 = this.physics.add.sprite(Math.ceil(Math.random() * 22000) + 600, Math.ceil(Math.random() * 800), 'rock2');
+	rock3 = this.physics.add.sprite(Math.ceil(Math.random() * 22000) + 600, Math.ceil(Math.random() * 800), 'rock3');
 
 	beer = this.physics.add.sprite(Math.ceil(Math.random() * 600) + 600, Math.ceil(Math.random() * 800), 'pint1');
 
@@ -212,10 +212,10 @@ function update() {
 	if (splashPhase == 4) {
 		
         if (cursors.left.isDown) {
-            isChugging = false;
+            restoreChugging();
             player.setVelocityX(-300);
         } else if (cursors.right.isDown) {
-            isChugging = false;
+            restoreChugging();
             player.setVelocityX(300);
         } else {
             player.setVelocityX(0);
@@ -230,8 +230,10 @@ function update() {
             rock2.y -= fallSpeed;
             rock3.y -= fallSpeed;
             beer.y -= fallSpeed;	
-        } else {
-            p = p > 0 ? p - 0.005 : 0;
+        }
+
+        if (isFlaxxing) {
+            p = p > 0 ? p - 0.015 : 0;
         }
 
         if (keyF.isDown && isDrunk) {
@@ -246,6 +248,13 @@ function update() {
         doBeerStuffs();
 		
 	}
+}
+
+function restoreChugging(){
+    if (player.anims.currentAnim?.key === 'drink') {
+        player.anims.play('dwa');
+    }
+    isChugging = false;
 }
 
 function doBeerStuffs() {
@@ -278,6 +287,7 @@ function doRockStuffs(){
 }
 
 function drinkBeer(){
+    player.anims.play('drink');
 	isChugging = true;
 }
 
