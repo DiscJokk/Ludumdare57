@@ -23,6 +23,16 @@ let player, cursors, enemies;
 function preload() {
 	this.load.image('player', '/Pix/dwa1.png');
 	this.load.image('enemy', '/Pix/dwa2.png');
+
+	// bg stuff
+	this.load.image('wall1', '/Pix/wall1.png');
+	this.load.image('wall2', '/Pix/wall2.png');
+	this.load.image('wall3', '/Pix/wall3.png');
+	this.load.image('wall4', '/Pix/wall4.png');
+
+	// character sprite
+	this.load.image('dwa1', '/Pix/dwa1.png');
+	this.load.image('dwa2', '/Pix/dwa2.png');
 }
 
 function create() {
