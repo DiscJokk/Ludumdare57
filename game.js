@@ -1,4 +1,5 @@
-let framerate = 6;
+const framerate = 4;
+const fallSpeed = -250;
 
 const config = {
 	type: Phaser.AUTO,
@@ -20,21 +21,27 @@ const config = {
 
 const game = new Phaser.Game(config);
 
-let player, cursors, enemies;
+let player, cursors, stone1, stone2, stone3;
+let p = 4;
+let isDrunk = true;
 
 function preload() {
-	this.load.image('player', '/Pix/dwa1.png');
-	this.load.image('enemy', '/Pix/dwa2.png');
+	this.load.image('player', '/pix/dwa1.png');
+	this.load.image('rock1', '/pix/rock_60.png');
+    this.load.image('rock2', '/pix/rock_120.png');
+    this.load.image('rock3', '/pix/rock_240.png');
 
 	// bg stuff
-	this.load.image('wall1', '/Pix/wall1.png');
-	this.load.image('wall2', '/Pix/wall2.png');
-	this.load.image('wall3', '/Pix/wall3.png');
-	this.load.image('wall4', '/Pix/wall4.png');
+	this.load.image('wall1', '/pix/wall1.png');
+	this.load.image('wall2', '/pix/wall2.png');
+	this.load.image('wall3', '/pix/wall3.png');
+	this.load.image('wall4', '/pix/wall4.png');
 
 	// character sprite
-	this.load.image('dwa1', '/Pix/dwa1.png');
-	this.load.image('dwa2', '/Pix/dwa2.png');
+	this.load.image('dwa1', '/pix/dwa1.png');
+	this.load.image('dwa2', '/pix/dwa2.png');
+
+    this.load.image('beer', '/pix/coin1.pix');
 }
 
 function create() {
@@ -47,7 +54,7 @@ function create() {
 	});
 
 	// no idea what this will do....
-	this.background = this.physics.add.sprite(0, 0, 'wall1');
+	this.background = this.physics.add.sprite(400, 300, 'wall1');
 	this.background.anims.play('background');
 
 
@@ -63,17 +70,43 @@ function create() {
 	// Listen for C being tapped once
 	keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
 
-	enemies = this.physics.add.group({
-		key: 'enemy',
-		repeat: 5,
-		setXY: { x: 100, y: 600, stepX: 100 }
+    Math.ceil(Math.random() * 800) + 600
+
+	rock1 = this.physics.add.group({
+		key: 'rock1',
+		repeat: 0,
+		setXY: { x: Math.ceil(Math.random() * 600) + 600, y: Math.ceil(Math.random() * 800), stepX: 100 }
 	});
 
-	enemies.children.iterate(enemy => {
-		enemy.setVelocityY(-100);
+    rock2 = this.physics.add.group({
+		key: 'rock2',
+		repeat: 0,
+		setXY: { x: Math.ceil(Math.random() * 600) + 600, y: Math.ceil(Math.random() * 800), stepX: 100 }
 	});
 
-	this.physics.add.overlap(player, enemies, hitObstacle, null, this);
+    rock3 = this.physics.add.group({
+		key: 'rock3',
+		repeat: 0,
+		setXY: { x: Math.ceil(Math.random() * 600) + 600, y: Math.ceil(Math.random() * 800), stepX: 100 }
+	});
+
+	rock1.children.iterate(rock => {
+		rock.setVelocityY(fallSpeed);
+	});
+
+    rock2.children.iterate(rock => {
+		rock.setVelocityY(fallSpeed);
+	});
+
+    rock3.children.iterate(rock => {
+		rock.setVelocityY(fallSpeed);
+	});
+
+    //friends =
+
+	this.physics.add.overlap(player, rock1, hitObstacle, null, this);
+    this.physics.add.overlap(player, rock2, hitObstacle, null, this);
+    this.physics.add.overlap(player, rock3, hitObstacle, null, this);
 }
 
 function update() {
@@ -86,30 +119,79 @@ function update() {
 		player.setVelocityX(0);
 	}
 
-	if (keyF.isDown) {
-		enemies.children.iterate(enemy => {
-			enemy.setVelocityY(0); // Enemies rise upward
-		});
-	} else {
-		enemies.children.iterate(enemy => {
-			enemy.setVelocityY(-100); // Enemies rise upward
-		});
-	}
+	spawnRocks();
 
 	if (Phaser.Input.Keyboard.JustDown(keyC)) {
 		console.log("Chugging away");
+        p = p < 4 ? p + 0.08 : 4;
 	}
 
-	// Reset enemies that go off-screen
-	enemies.children.iterate(enemy => {
-		if (enemy.y < 0) {
-			enemy.y = 600;
-			enemy.x = Phaser.Math.Between(50, 750);
+    isDrunk = p > 0;
+    console.log("Current promille: ", p);
+}
+
+function spawnRocks(){
+    const despawn = -300;
+
+    // Rock 1
+    if (keyF.isDown && isDrunk) {
+		rock1.children.iterate(rock => {
+            p = p > 0 ? p - 0.005 : 0;
+			rock.setVelocityY(0);
+		});
+	} else {
+		rock1.children.iterate(rock => {
+			rock.setVelocityY(fallSpeed);
+		});
+	}
+
+	rock1.children.iterate(stone => {
+		if (stone.y < despawn) {
+			stone.y = Math.ceil(Math.random() * 800) + 600;
+			stone.x = Phaser.Math.Between(50, 750);
+		}
+	});
+
+    // Rock 2
+    if (keyF.isDown && isDrunk) {
+		rock2.children.iterate(rock => {
+            p = p > 0 ? p - 0.005 : 0;
+			rock.setVelocityY(0);
+		});
+	} else {
+		rock2.children.iterate(rock => {
+			rock.setVelocityY(fallSpeed);
+		});
+	}
+
+	rock2.children.iterate(stone => {
+		if (stone.y < despawn) {
+			stone.y = Math.ceil(Math.random() * 800) + 600;
+			stone.x = Phaser.Math.Between(50, 750);
+		}
+	});
+
+    // Rock 3
+    if (keyF.isDown && isDrunk) {
+		rock3.children.iterate(rock => {
+            p = p > 0 ? p - 0.005 : 0;
+			rock.setVelocityY(0);
+		});
+	} else {
+		rock3.children.iterate(rock => {
+			rock.setVelocityY(fallSpeed);
+		});
+	}
+
+	rock3.children.iterate(stone => {
+		if (stone.y < despawn) {
+			stone.y = Math.ceil(Math.random() * 800) + 600;
+			stone.x = Phaser.Math.Between(50, 750);
 		}
 	});
 }
 
-function hitObstacle(player, enemy) {
+function hitObstacle(player, stone1) {
 	// Basic reaction for now — stop everything
 	this.physics.pause();
 	player.setTint(0xff0000);
