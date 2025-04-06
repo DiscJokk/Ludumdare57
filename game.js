@@ -70,6 +70,8 @@ function preload() {
 
 	this.load.audio('putt','/efeks/Musty Putt.mp3');
 	this.load.audio('gungk','/efeks/gungk.mp3');
+	this.load.audio('dwarfpate','/efeks/Dwarfpate.mp3');
+	this.load.audio('flaxxx','/efeks/Flaxxx.mp3');
 
 	this.load.image('rock1', '/pix/rock_60.png');
 	this.load.image('rock2', '/pix/rock_120.png');
@@ -296,6 +298,8 @@ function create() {
 	// sound stuff goes here
 	this.putt = this.sound.add('putt');
 	this.gungk = this.sound.add('gungk');
+	this.dwarfpate = this.sound.add('dwarfpate');
+	this.flaxxx = this.sound.add('flaxx');
 }
 
 function update() {
