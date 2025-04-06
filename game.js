@@ -305,6 +305,10 @@ function create() {
 	this.gungk = this.sound.add('gungk');
 	this.dwarfpate = this.sound.add('dwarfpate');
 	this.flaxxx = this.sound.add('flaxx');
+
+	this.titlesplash = this.sound.add('titlesplash');
+	this.ingamemusic = this.sound.add('ingamemusic');
+	this.gitgudorlistentothis = this.sound.add('gitgudorlistentothis');
 }
 
 function update() {
