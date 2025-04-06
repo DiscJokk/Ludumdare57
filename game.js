@@ -303,6 +303,9 @@ function create() {
 	this.physics.add.overlap(playerHitbox, rock3Hitbox, hitObstacle, null, this);
 	this.physics.add.overlap(playerHitbox, beer, drinkBeer);
 
+	// sound stuff goes here
+	this.putt = this.sound.add('putt');
+	this.gungk = this.sound.add('gungk');
 
 }
 
