@@ -2,22 +2,9 @@
 
 Stuffs to do tomorrow when sober:
 
-Fix bugg that somethimes happen when you start moving and flaxxing after chugging
-
-Fix bug where sometimes two empty beers appear
-
-Add some sort of instruction that tells to use for flaxx
-
-Collition boxes
-
 Musaka
 
 Sound fxs
-
-Power bar
-
-GO anim
-
 
 Stuffs to do tomporrow when drunk:
 
@@ -49,6 +36,8 @@ let isBalling = false;
 let splashPhase = 0;
 let flaxFlag = false;
 let depth = 0;
+let hasRestartListener = false;
+let isReset = false;
 
 const config = {
 	type: Phaser.AUTO,
@@ -226,7 +215,7 @@ function create() {
 
 	keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
 
-	keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
+	keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
 
 	rock1 = this.physics.add.sprite(Math.ceil(Math.random() * 22000) + 600, Math.ceil(Math.random() * 800), 'rock1');
 	rock2 = this.physics.add.sprite(Math.ceil(Math.random() * 22000) + 600, Math.ceil(Math.random() * 800), 'rock2');
@@ -295,6 +284,7 @@ function create() {
 	// Set the origin to the center horizontally
 	this.finalScore.setOrigin(0.5, 0);
 	this.finalScore.visible = false;
+
 	this.splash0 = this.physics.add.sprite(400, 300, 'splash0');
 
 	// Switch the collition detection to use the invisable hitboxes instead of these
@@ -306,7 +296,6 @@ function create() {
 	// sound stuff goes here
 	this.putt = this.sound.add('putt');
 	this.gungk = this.sound.add('gungk');
-
 }
 
 function update() {
@@ -348,7 +337,7 @@ function update() {
 				this.putt.play();
 			}
 		});
-		
+
 		this.splash.on('animationcomplete', function (animation, frame) {
 			splashPhase = 1;
 		});
@@ -431,6 +420,55 @@ function update() {
         doBeerStuffs();
 		
 	}
+
+	if (isGameOver) {	
+		if (keyR.isDown) {
+			resetGame.call(this);
+		};
+	}
+}
+
+function resetGame() {
+	splashPhase = 0;
+	isChugging = false;
+	isFlaxxing = false;
+	isGameOver = false;
+	isSplashing = true;
+	isBalling = false;
+	flaxFlag = false;
+	depth = 0;
+	p = pMax;
+	isDrunk = true;
+
+	dephChounter.setText('Depth: 0');
+	pChounter.setText('P: ' + p.toFixed(2) + '/' + pMax);
+	this.pBar.setScale(1, 1);
+	this.pBar.setTint(0x00FF00);
+
+	player.setPosition(400, 150);
+	player.clearTint();
+	player.anims.play('ball');
+	player.setVelocityX(0);
+	player.setFlipX(false);
+	playerHitbox.setPosition(400, 150);
+
+	this.splash.setPosition(400, 400);
+	this.splash.visible = true;
+	this.splash0.visible = true;
+
+	this.gameover.visible = false;
+	this.finalScore.visible = false;
+
+	rock1.setPosition(Phaser.Math.Between(600, 22600), Phaser.Math.Between(0, 800));
+	rock2.setPosition(Phaser.Math.Between(600, 22600), Phaser.Math.Between(0, 800));
+	rock3.setPosition(Phaser.Math.Between(600, 22600), Phaser.Math.Between(0, 800));
+	beer.setPosition(Phaser.Math.Between(600, 1200), Phaser.Math.Between(0, 800));
+	emptyBeer.setPosition(-300, -300);
+
+	this.physics.resume();
+	this.background.anims.play('background');
+	player.clearTint();
+	this.scene.restart();
 }
 
 function restoreChugging(){
