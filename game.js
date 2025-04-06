@@ -35,6 +35,7 @@ Go to the promise land
 
 */
 
+const isDebug = false;
 
 const framerate = 4;
 const fallSpeed = 10;
@@ -207,8 +208,10 @@ function create() {
 	this.background = this.physics.add.sprite(400, 300, 'wall1');
 	this.background.anims.play('background');
 
+	// Create a smaller invisable hitbox for the dwarf
 	player = this.physics.add.sprite(400, 150, 'ball4').setImmovable(true);
 	player.body.allowGravity = false;
+	// TODO check this out
 	player.setCollideWorldBounds(true);
 	playerHitbox = this.physics.add.sprite(400, 150, 'dwa_hitbox');
 	
@@ -225,6 +228,21 @@ function create() {
 	rock1Hitbox = this.physics.add.sprite(0, 0, 'rock1_hitbox');
 	rock2Hitbox = this.physics.add.sprite(0, 0, 'rock2_hitbox');
 	rock3Hitbox = this.physics.add.sprite(0, 0, 'rock3_hitbox');
+
+	let scale = 0.9;
+	rock1Hitbox.setScale(scale);
+	rock2Hitbox.setScale(scale);
+	rock3Hitbox.setScale(scale);
+	playerHitbox.setScale(scale);
+	rock1Hitbox.body.setSize(rock1Hitbox.width * scale, rock1Hitbox.height * scale);  // width, height in pixels
+	rock2Hitbox.body.setSize(rock2Hitbox.width * scale, rock2Hitbox.height * scale);
+	rock3Hitbox.body.setSize(rock3Hitbox.width * scale, rock3Hitbox.height * scale);
+	playerHitbox.body.setSize(playerHitbox.width * scale, playerHitbox.height * scale);
+
+	rock1Hitbox.setVisible(isDebug);
+	rock2Hitbox.setVisible(isDebug);
+	rock3Hitbox.setVisible(isDebug);
+	playerHitbox.setVisible(isDebug);
 
 	beer = this.physics.add.sprite(Math.ceil(Math.random() * 600) + 600, Math.ceil(Math.random() * 800), 'pint1');
 
@@ -255,10 +273,11 @@ function create() {
 	this.finalScore.visible = false;
 	this.splash0 = this.physics.add.sprite(400, 300, 'splash0');
 
-	this.physics.add.overlap(player, rock1, hitObstacle, null, this);
-	this.physics.add.overlap(player, rock2, hitObstacle, null, this);
-	this.physics.add.overlap(player, rock3, hitObstacle, null, this);
-	this.physics.add.overlap(player, beer, drinkBeer);
+	// Switch the collition detection to use the invisable hitboxes instead of these
+	this.physics.add.overlap(playerHitbox, rock1Hitbox, hitObstacle, null, this);
+	this.physics.add.overlap(playerHitbox, rock2Hitbox, hitObstacle, null, this);
+	this.physics.add.overlap(playerHitbox, rock3Hitbox, hitObstacle, null, this);
+	this.physics.add.overlap(playerHitbox, beer, drinkBeer);
 
 	// sound stuff
 	this.putt = this.sound.add('putt');
@@ -266,6 +285,7 @@ function create() {
 }
 
 function update() {
+
 	// console.log("splashPhase: ", splashPhase);
 	playerHitbox.x = player.x;
 	playerHitbox.y = player.y;
@@ -352,7 +372,7 @@ function update() {
             }
         }
 
-        if (isFlaxxing) {
+        if (isFlaxxing && !isDebug) {
             p = p > 0 ? p - 0.015 : 0;
         }
 
@@ -417,14 +437,18 @@ function drinkBeer(){
     player.anims.play('drink');
 	isChugging = true;
 }
-
+let collitionCounter = 0;
 function hitObstacle(player, stone1) {
 	// Basic reaction for now — stop everything
-	isGameOver = true;
-	this.gameover.visible = true;
-	this.finalScore.setText("Final Score:\n" + depth);
-	this.finalScore.visible = true;
-	this.physics.pause();
-	player.setTint(0xff0000);
-	console.log("💥 You hit an obstacle!");
+	if (isDebug) {
+		console.log("COLITION DETECTED!!!", collitionCounter++)
+	} else {
+		isGameOver = true;
+		this.gameover.visible = true;
+		this.finalScore.setText("Final Score:\n" + depth);
+		this.finalScore.visible = true;
+		this.physics.pause();
+		player.setTint(0xff0000);
+		console.log("💥 You hit an obstacle!");
+	}
 }
