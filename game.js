@@ -16,8 +16,6 @@ Sound fxs
 
 Power bar
 
-GO splash
-
 GO anim
 
 Depth counter
@@ -95,6 +93,8 @@ function preload() {
 
 	this.load.image('pint1', '/pix/pint1.png');
 	this.load.image('pint2', '/pix/pint2.png');
+
+	this.load.image('gameover', '/pix/gameover.png');
 
 	this.load.image('splash1', '/pix/splash1.png');
 	this.load.image('splash2', '/pix/splash2.png');
@@ -222,6 +222,10 @@ function create() {
 	// Do not tuch!
 	this.splash = this.physics.add.sprite(400, 400, 'splash1');
 
+	this.gameover = this.physics.add.sprite(400, 300, 'gameover');
+	this.gameover.visible = false;
+
+
 	this.physics.add.overlap(player, rock1, hitObstacle, null, this);
 	this.physics.add.overlap(player, rock2, hitObstacle, null, this);
 	this.physics.add.overlap(player, rock3, hitObstacle, null, this);
@@ -256,10 +260,8 @@ function update() {
 	if (splashPhase == 2) {
 		player.on('animationcomplete', function (animation, frame) {
 			splashPhase = 3;
-		});
-		
+		});	
 	}
-
 
 	if (splashPhase == 3) {
 		player.anims.play('dwa');
@@ -366,6 +368,7 @@ function drinkBeer(){
 function hitObstacle(player, stone1) {
 	// Basic reaction for now — stop everything
 	isGameOver = true;
+	this.gameover.visible = true;
 	this.physics.pause();
 	player.setTint(0xff0000);
 	console.log("💥 You hit an obstacle!");
