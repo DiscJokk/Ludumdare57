@@ -71,7 +71,10 @@ const config = {
 const game = new Phaser.Game(config);
 
 let player, cursors, stone1, stone2, stone3;
-let p = 4;
+const pMax = 10;
+const pCostFlax = 0.02;
+const pBoostDrink = 0.04;
+let p = pMax;
 let isDrunk = true;
 
 function preload() {
@@ -257,6 +260,14 @@ function create() {
 		align: 'center', 
 	});
 
+	pChounter = this.add.text(10, 40, 'Hello World', { 
+		fontSize: '20px',
+		fontFamily: 'Arial',
+		color: '#ffffff',
+		align: 'center', 
+	});
+
+
 	// Do not tuch!
 	this.splash = this.physics.add.sprite(400, 400, 'splash1');
 	this.gameover = this.physics.add.sprite(400, 300, 'gameover');
@@ -302,7 +313,8 @@ function update() {
 	if (splashPhase > 3 && !isGameOver && !isFlaxxing) {
 		depth ++;
 	}
-	dephChounter.setText('Depth: ' + depth)
+	dephChounter.setText('Depth: ' + depth);
+	pChounter.setText('P: ' + p.toFixed(2)  + '/' + pMax);
 
 	if (splashPhase == 0) {
 		this.input.keyboard.on('keydown', (event) => {
@@ -355,7 +367,7 @@ function update() {
         }
 
         if (isChugging) {
-            p = p < 4 ? p + 0.005 : 4;
+            p = p < pMax ? p + pBoostDrink : pMax;
         }
 
         if (!isFlaxxing && !isGameOver) {
@@ -373,7 +385,7 @@ function update() {
         }
 
         if (isFlaxxing && !isDebug) {
-            p = p > 0 ? p - 0.015 : 0;
+			p = p > 0 ? p - pCostFlax : 0;
         }
 
         if (keyF.isDown && isDrunk) {
