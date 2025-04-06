@@ -75,6 +75,8 @@ let isDrunk = true;
 
 function preload() {
 
+	this.load.audio('putt','/efeks/Musty Putt.mp3');
+
 	this.load.image('rock1', '/pix/rock_60.png');
 	this.load.image('rock2', '/pix/rock_120.png');
 	this.load.image('rock3', '/pix/rock_240.png');
@@ -246,6 +248,10 @@ function create() {
 	this.physics.add.overlap(player, rock2, hitObstacle, null, this);
 	this.physics.add.overlap(player, rock3, hitObstacle, null, this);
 	this.physics.add.overlap(player, beer, drinkBeer);
+
+	// sound stuff
+	this.putt = this.sound.add('putt');
+
 }
 
 function update() {
@@ -260,6 +266,7 @@ function update() {
 			if (splashPhase == 0) {
 				this.splash0.visible = false;
 				this.splash.anims.play('splash');
+				this.putt.play();
 			}
 		});
 		
