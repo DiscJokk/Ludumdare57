@@ -408,10 +408,12 @@ function update() {
         if (isFlaxxing && !isDebug) {
 			p = p > 0 ? p - pCostFlax : 0;
         }
-
+		
         if (keyF.isDown && isDrunk) {
+			if (player.anims.currentAnim?.key !== 'flax') {
+				player.anims.play('flax');
+			}
             if (!flaxFlag) {
-                player.anims.play('flax');
 				this.background.anims.pause();
                 flaxFlag = true;
             }
@@ -467,15 +469,17 @@ function doRockStuffs(){
 }
 
 function drinkBeer(){
-    player.anims.play('drink');
-	isChugging = true;
+	if (!keyF.isDown){
+		player.anims.play('drink');
+		isChugging = true;
+	}
 }
 let collitionCounter = 0;
 function hitObstacle(player, stone1) {
-	// Basic reaction for now — stop everything
 	if (isDebug) {
 		console.log("COLITION DETECTED!!!", collitionCounter++)
 	} else {
+		// Basic reaction for now — stop everything
 		isGameOver = true;
 		this.gameover.visible = true;
 		this.finalScore.setText("Final Score:\n" + depth);
