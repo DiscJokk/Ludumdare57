@@ -129,9 +129,12 @@ function preload() {
 
 	// hitboxes n stuff
 	this.load.image('dwa_hitbox', '/pix/dwa_hitbox.png');
-	this.load.image('rock3_hitbox', '/pix/rock_240_hitbox.png')
-	this.load.image('rock2_hitbox', '/pix/rock_120_hitbox.png')
-	this.load.image('rock1_hitbox', '/pix/rock_60_hitbox.png')
+	this.load.image('rock3_hitbox', '/pix/rock_240_hitbox.png');
+	this.load.image('rock2_hitbox', '/pix/rock_120_hitbox.png');
+	this.load.image('rock1_hitbox', '/pix/rock_60_hitbox.png');
+
+	this.load.image('pBarBack', 'pix/pBarBack.png');
+	this.load.image('pBar', 'pix/pBar.png');
 }
 
 function create() {
@@ -260,12 +263,21 @@ function create() {
 		align: 'center', 
 	});
 
-	pChounter = this.add.text(10, 40, 'Hello World', { 
-		fontSize: '20px',
+	this.pBarBack = this.physics.add.sprite(10, 40, 'pBarBack');
+	this.pBarBack.setOrigin(0, 0);
+
+	this.pBar = this.physics.add.sprite(15, 45, 'pBar');
+	this.pBar.setOrigin(0, 0);
+
+	
+
+	pChounter = this.add.text(17, 47, 'Hello World', { 
+		fontSize: '15px',
 		fontFamily: 'Arial',
-		color: '#ffffff',
+		color: '#000',
 		align: 'center', 
 	});
+
 
 
 	// Do not tuch!
@@ -315,6 +327,16 @@ function update() {
 	}
 	dephChounter.setText('Depth: ' + depth);
 	pChounter.setText('P: ' + p.toFixed(2)  + '/' + pMax);
+	this.pBar.setScale(p / pMax, 1);
+
+	// bar tint doBeerStuffs
+	if (p / pMax < 0.3) {
+		this.pBar.setTint(0xff0000);
+	} else if (p / pMax < 0.6) {
+		this.pBar.setTint(0xFFFF00);
+	} else {
+		this.pBar.setTint(0x00FF00);
+	}
 
 	if (splashPhase == 0) {
 		this.input.keyboard.on('keydown', (event) => {
