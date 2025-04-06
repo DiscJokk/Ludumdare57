@@ -122,6 +122,12 @@ function preload() {
 	this.load.image('flax2', '/pix/flax2.png');
 
 	this.load.image('pint_empty', '/pix/pint_empty1.png');
+
+	// hitboxes n stuff
+	this.load.image('dwa_hitbox', '/pix/dwa_hitbox.png');
+	this.load.image('rock3_hitbox', '/pix/rock_240_hitbox.png')
+	this.load.image('rock2_hitbox', '/pix/rock_120_hitbox.png')
+	this.load.image('rock1_hitbox', '/pix/rock_60_hitbox.png')
 }
 
 function create() {
@@ -204,6 +210,7 @@ function create() {
 	player = this.physics.add.sprite(400, 150, 'ball4').setImmovable(true);
 	player.body.allowGravity = false;
 	player.setCollideWorldBounds(true);
+	playerHitbox = this.physics.add.sprite(400, 150, 'dwa_hitbox');
 	
 	cursors = this.input.keyboard.createCursorKeys();
 
@@ -214,6 +221,10 @@ function create() {
 	rock1 = this.physics.add.sprite(Math.ceil(Math.random() * 22000) + 600, Math.ceil(Math.random() * 800), 'rock1');
 	rock2 = this.physics.add.sprite(Math.ceil(Math.random() * 22000) + 600, Math.ceil(Math.random() * 800), 'rock2');
 	rock3 = this.physics.add.sprite(Math.ceil(Math.random() * 22000) + 600, Math.ceil(Math.random() * 800), 'rock3');
+
+	rock1Hitbox = this.physics.add.sprite(0, 0, 'rock1_hitbox');
+	rock2Hitbox = this.physics.add.sprite(0, 0, 'rock2_hitbox');
+	rock3Hitbox = this.physics.add.sprite(0, 0, 'rock3_hitbox');
 
 	beer = this.physics.add.sprite(Math.ceil(Math.random() * 600) + 600, Math.ceil(Math.random() * 800), 'pint1');
 
@@ -256,6 +267,18 @@ function create() {
 
 function update() {
 	// console.log("splashPhase: ", splashPhase);
+	playerHitbox.x = player.x;
+	playerHitbox.y = player.y;
+
+	rock1Hitbox.x = rock1.x;
+	rock1Hitbox.y = rock1.y;
+
+	rock2Hitbox.x = rock2.x;
+	rock2Hitbox.y = rock2.y;
+
+	rock3Hitbox.x = rock3.x;
+	rock3Hitbox.y = rock3.y;
+
 	if (splashPhase > 3 && !isGameOver && !isFlaxxing) {
 		depth ++;
 	}
