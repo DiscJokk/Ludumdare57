@@ -80,6 +80,7 @@ let isDrunk = true;
 function preload() {
 
 	this.load.audio('putt','/efeks/Musty Putt.mp3');
+	this.load.audio('gungk','/efeks/gungk.mp3');
 
 	this.load.image('rock1', '/pix/rock_60.png');
 	this.load.image('rock2', '/pix/rock_120.png');
@@ -302,8 +303,6 @@ function create() {
 	this.physics.add.overlap(playerHitbox, rock3Hitbox, hitObstacle, null, this);
 	this.physics.add.overlap(playerHitbox, beer, drinkBeer);
 
-	// sound stuff
-	this.putt = this.sound.add('putt');
 
 }
 
