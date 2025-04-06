@@ -189,7 +189,7 @@ function create() {
 		key: 'ball',
 		frames: [
 			{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},
-            {key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},
+			{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},
 			{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},
 			{key: 'ball2'},
 			{key: 'ball3'},
@@ -242,7 +242,7 @@ function create() {
 
 	beer = this.physics.add.sprite(Math.ceil(Math.random() * 600) + 600, Math.ceil(Math.random() * 800), 'pint1');
 
-    emptyBeer = this.physics.add.sprite(-300, -300, 'pint_empty');
+	emptyBeer = this.physics.add.sprite(-300, -300, 'pint_empty');
 
 
 
@@ -367,57 +367,57 @@ function update() {
 
 	if (splashPhase == 4) {
 		
-        if (cursors.left.isDown) {
-            restoreChugging();
+		if (cursors.left.isDown) {
+			restoreChugging();
 			player.setFlipX(true);
-            player.setVelocityX(-300);
-        } else if (cursors.right.isDown) {
-            restoreChugging();
+			player.setVelocityX(-300);
+		} else if (cursors.right.isDown) {
+			restoreChugging();
 			player.setFlipX(false);
-            player.setVelocityX(300);
-        } else {
-            player.setVelocityX(0);
-        }
+			player.setVelocityX(300);
+		} else {
+			player.setVelocityX(0);
+		}
 
-        if (isChugging) {
-            p = p < pMax ? p + pBoostDrink : pMax;
-        }
+		if (isChugging) {
+			p = p < pMax ? p + pBoostDrink : pMax;
+		}
 
-        if (!isFlaxxing && !isGameOver) {
-            rock1.y -= fallSpeed;
-            rock2.y -= fallSpeed;
-            rock3.y -= fallSpeed;
-            beer.y -= fallSpeed;
-            emptyBeer.y -= fallSpeed;
-            
-            if (player.anims.currentAnim?.key === 'flax') {
-                flaxFlag = false;
+		if (!isFlaxxing && !isGameOver) {
+			rock1.y -= fallSpeed;
+			rock2.y -= fallSpeed;
+			rock3.y -= fallSpeed;
+			beer.y -= fallSpeed;
+			emptyBeer.y -= fallSpeed;
+			
+			if (player.anims.currentAnim?.key === 'flax') {
+				flaxFlag = false;
 				this.background.anims.play('background');
-                player.anims.play('dwa');
-            }
-        }
+				player.anims.play('dwa');
+			}
+		}
 
-        if (isFlaxxing && !isDebug) {
+		if (isFlaxxing && !isDebug) {
 			p = p > 0 ? p - pCostFlax : 0;
-        }
+		}
 		
-        if (keyF.isDown && isDrunk) {
+		if (keyF.isDown && isDrunk) {
 			if (player.anims.currentAnim?.key !== 'flax') {
 				player.anims.play('flax');
 			}
-            if (!flaxFlag) {
+			if (!flaxFlag) {
 				this.background.anims.pause();
-                flaxFlag = true;
-            }
-            isFlaxxing = true;
-        } else {
-            isFlaxxing = false;
-        }
+				flaxFlag = true;
+			}
+			isFlaxxing = true;
+		} else {
+			isFlaxxing = false;
+		}
 
-        isDrunk = p > 0;
+		isDrunk = p > 0;
 
-        doRockStuffs();
-        doBeerStuffs();
+		doRockStuffs();
+		doBeerStuffs();
 		
 	}
 
@@ -472,12 +472,12 @@ function resetGame() {
 }
 
 function restoreChugging(){
-    if (player.anims.currentAnim?.key === 'drink') {
-        player.anims.play('dwa');
-        emptyBeer.x = player.x
-        emptyBeer.y = player.y;
-    }
-    isChugging = false;
+	if (player.anims.currentAnim?.key === 'drink') {
+		player.anims.play('dwa');
+		emptyBeer.x = player.x
+		emptyBeer.y = player.y;
+	}
+	isChugging = false;
 }
 
 function doBeerStuffs() {
