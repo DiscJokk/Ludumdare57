@@ -71,7 +71,7 @@ function preload() {
 	this.load.audio('putt','/efeks/Musty Putt.mp3');
 	this.load.audio('gungk','/efeks/gungk.mp3');
 	this.load.audio('dwarfpate','/efeks/Dwarfpate.mp3');
-	this.load.audio('flaxxx','/efeks/Flaxxx.mp3');
+	this.load.audio('flaxx','/efeks/Flaxxx.mp3');
 
 	this.load.audio('titlesplash','/vibes/Violet Clouds Candy.wav');
 	this.load.audio('ingamemusic','/vibes/Dwarven Flight Simulator.mp3');
