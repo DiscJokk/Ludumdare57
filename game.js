@@ -93,6 +93,7 @@ function preload() {
 
 	this.load.image('gameover', '/pix/gameover.png');
 
+	this.load.image('splash0', '/pix/splash0.png');
 	this.load.image('splash1', '/pix/splash1.png');
 	this.load.image('splash2', '/pix/splash2.png');
 	this.load.image('splash3', '/pix/splash3.png');
@@ -239,6 +240,7 @@ function create() {
 	// Set the origin to the center horizontally
 	this.finalScore.setOrigin(0.5, 0);
 	this.finalScore.visible = false;
+	this.splash0 = this.physics.add.sprite(400, 300, 'splash0');
 
 	this.physics.add.overlap(player, rock1, hitObstacle, null, this);
 	this.physics.add.overlap(player, rock2, hitObstacle, null, this);
@@ -256,6 +258,7 @@ function update() {
 	if (splashPhase == 0) {
 		this.input.keyboard.on('keydown', (event) => {
 			if (splashPhase == 0) {
+				this.splash0.visible = false;
 				this.splash.anims.play('splash');
 			}
 		});
