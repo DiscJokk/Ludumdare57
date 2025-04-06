@@ -51,6 +51,7 @@ let isSplashing = true;
 let isBalling = false;
 let splashPhase = 0;
 let flaxFlag = false;
+let depth = 0;
 
 const config = {
 	type: Phaser.AUTO,
@@ -219,12 +220,29 @@ function create() {
 
     emptyBeer = this.physics.add.sprite(-300, -300, 'pint_empty');
 
+
+
+	dephChounter = this.add.text(10, 10, 'Hello World', { 
+		fontSize: '20px',
+		fontFamily: 'Arial',
+		color: '#ffffff',
+		align: 'center', 
+	});
+
 	// Do not tuch!
 	this.splash = this.physics.add.sprite(400, 400, 'splash1');
-
 	this.gameover = this.physics.add.sprite(400, 300, 'gameover');
 	this.gameover.visible = false;
-
+	this.finalScore = this.add.text(400, 360, 'Final Score:\n99s', 
+		{ 
+			fontSize: '50px',
+			fontFamily: 'Arial',
+			color: '#ffffff',
+			align: 'center', 
+		});
+	// Set the origin to the center horizontally
+	this.finalScore.setOrigin(0.5, 0);
+	this.finalScore.visible = false;
 
 	this.physics.add.overlap(player, rock1, hitObstacle, null, this);
 	this.physics.add.overlap(player, rock2, hitObstacle, null, this);
@@ -233,8 +251,12 @@ function create() {
 }
 
 function update() {
-	console.log("splashPhase: ", splashPhase);
-	
+	// console.log("splashPhase: ", splashPhase);
+	if (splashPhase > 3 && !isGameOver && !isFlaxxing) {
+		depth ++;
+	}
+	dephChounter.setText('Depth: ' + depth)
+
 	if (splashPhase == 0) {
 		this.input.keyboard.on('keydown', (event) => {
 			if (splashPhase == 0) {
@@ -273,9 +295,11 @@ function update() {
 		
         if (cursors.left.isDown) {
             restoreChugging();
+			player.setFlipX(true);
             player.setVelocityX(-300);
         } else if (cursors.right.isDown) {
             restoreChugging();
+			player.setFlipX(false);
             player.setVelocityX(300);
         } else {
             player.setVelocityX(0);
@@ -369,6 +393,8 @@ function hitObstacle(player, stone1) {
 	// Basic reaction for now — stop everything
 	isGameOver = true;
 	this.gameover.visible = true;
+	this.finalScore.setText("Final Score:\n" + depth);
+	this.finalScore.visible = true;
 	this.physics.pause();
 	player.setTint(0xff0000);
 	console.log("💥 You hit an obstacle!");
