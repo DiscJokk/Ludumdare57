@@ -6,7 +6,7 @@ Fix bugg that somethimes happen when you start moving and flaxxing after chuggin
 
 Fix bug where sometimes two empty beers appear
 
-Add some sort of instruction that tells to use F and C for flaxx and chugg
+Add some sort of instruction that tells to use for flaxx
 
 Collition boxes
 
@@ -186,8 +186,8 @@ function create() {
 		key: 'ball',
 		frames: [
 			{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},
-            {key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{
-            key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},
+            {key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},
+			{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},{key: 'ball1'},
 			{key: 'ball2'},
 			{key: 'ball3'},
 			{key: 'ball4'},
@@ -292,6 +292,7 @@ function update() {
             
             if (player.anims.currentAnim?.key === 'flax') {
                 flaxFlag = false;
+				this.background.anims.play('background');
                 player.anims.play('dwa');
             }
         }
@@ -303,6 +304,7 @@ function update() {
         if (keyF.isDown && isDrunk) {
             if (!flaxFlag) {
                 player.anims.play('flax');
+				this.background.anims.pause();
                 flaxFlag = true;
             }
             isFlaxxing = true;
