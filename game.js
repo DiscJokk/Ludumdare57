@@ -489,8 +489,11 @@ function hitObstacle(player, stone1) {
 		console.log("💥 You hit an obstacle!");
 	}
 }
-function playChuggingSound() 
-	
-	this.gungk.play();
-	if isChugging = true;
-	playChuggingSound()
+
+function playChuggingSound() {
+	// TODO figure out how to do the pitch thing.
+	// this is probably wrong... but it is a start :)
+	while(isChugging) {
+		this.gungk.play();
+	}
+}
