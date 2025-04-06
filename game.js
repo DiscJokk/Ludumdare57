@@ -67,12 +67,17 @@ let p = pMax;
 let isDrunk = true;
 
 function preload() {
-
+	// music and fx stuff
 	this.load.audio('putt','/efeks/Musty Putt.mp3');
 	this.load.audio('gungk','/efeks/gungk.mp3');
 	this.load.audio('dwarfpate','/efeks/Dwarfpate.mp3');
 	this.load.audio('flaxxx','/efeks/Flaxxx.mp3');
 
+	this.load.audio('titlesplash','/vibes/Violet Clouds Candy.wav');
+	this.load.audio('ingamemusic','/vibes/Dwarven Flight Simulator.mp3');
+	this.load.audio('gitgudorlistentothis','/vibes/Between A Rock and a Steel Helmet.wav');
+
+	// rock stuff
 	this.load.image('rock1', '/pix/rock_60.png');
 	this.load.image('rock2', '/pix/rock_120.png');
 	this.load.image('rock3', '/pix/rock_240.png');
