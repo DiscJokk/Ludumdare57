@@ -489,7 +489,8 @@ function hitObstacle(player, stone1) {
 		console.log("💥 You hit an obstacle!");
 	}
 }
-playChuggingSound()
-this.gungk.play();
-if isChugging = true
-playChuggingSound
+function playChuggingSound() 
+	
+	this.gungk.play();
+	if isChugging = true
+	playChuggingSound()
