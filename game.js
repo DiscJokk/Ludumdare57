@@ -492,5 +492,5 @@ function hitObstacle(player, stone1) {
 function playChuggingSound() 
 	
 	this.gungk.play();
-	if isChugging = true
+	if isChugging = true;
 	playChuggingSound()
