@@ -281,7 +281,7 @@ function create() {
 	this.splash = this.physics.add.sprite(400, 400, 'splash1');
 	this.gameover = this.physics.add.sprite(400, 300, 'gameover');
 	this.gameover.visible = false;
-	this.finalScore = this.add.text(400, 360, 'Final Score:\n99s', 
+	this.finalScore = this.add.text(400, 300, 'Final Score:\n99s', 
 		{ 
 			fontSize: '50px',
 			fontFamily: 'Arial',
@@ -289,7 +289,7 @@ function create() {
 			align: 'center', 
 		});
 	// Set the origin to the center horizontally
-	this.finalScore.setOrigin(0.5, 0);
+	this.finalScore.setOrigin(0.5, 0.5);
 	this.finalScore.visible = false;
 
 	this.splash0 = this.physics.add.sprite(400, 300, 'splash0');
