@@ -18,10 +18,6 @@ Power bar
 
 GO anim
 
-Depth counter
-
-Pause background when flaxxxing
-
 
 Stuffs to do tomporrow when drunk:
 
