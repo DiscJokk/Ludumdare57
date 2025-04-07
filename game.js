@@ -636,6 +636,9 @@ function doRockStuffs(){
 }
 
 function drinkBeer(){
+	// if collide, remove drink no matter what!.
+	beer.x += 900
+
 	if (!keyF.isDown){
 		player.anims.play('drink');
 		isChugging = true;
