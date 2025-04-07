@@ -292,22 +292,22 @@ function create() {
 
 
 
-	dephChounter = this.add.text(10, 10, 'Hello World', { 
+	dephChounter = this.add.text(10, 45, 'Hello World', { 
 		fontSize: '20px',
 		fontFamily: 'Arial',
 		color: '#ffffff',
 		align: 'center', 
 	});
 
-	this.pBarBack = this.physics.add.sprite(10, 40, 'pBarBack');
+	this.pBarBack = this.physics.add.sprite(10, 10, 'pBarBack');
 	this.pBarBack.setOrigin(0, 0);
 
-	this.pBar = this.physics.add.sprite(15, 45, 'pBar');
+	this.pBar = this.physics.add.sprite(15, 15, 'pBar');
 	this.pBar.setOrigin(0, 0);
 
 	
 
-	pChounter = this.add.text(17, 47, 'Hello World', { 
+	pChounter = this.add.text(17, 17, 'Hello World', { 
 		fontSize: '15px',
 		fontFamily: 'Arial',
 		color: '#000',
