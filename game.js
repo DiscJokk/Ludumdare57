@@ -76,74 +76,74 @@ let isDrunk = true;
 
 function preload() {
 	// music and fx stuff
-	this.load.audio('putt','/efeks/Musty Putt.mp3');
-	this.load.audio('gungk','/efeks/gungk.mp3');
-	this.load.audio('dwarfpate','/efeks/Dwarfpate.mp3');
-	this.load.audio('flaxx','/efeks/Flaxxx.mp3');
+	this.load.audio('putt','./efeks/Musty Putt.mp3');
+	this.load.audio('gungk','./efeks/gungk.mp3');
+	this.load.audio('dwarfpate','./efeks/Dwarfpate.mp3');
+	this.load.audio('flaxx','./efeks/Flaxxx.mp3');
 
-	this.load.audio('titlesplash','/vibes/Violet Clouds Candy.wav');
-	this.load.audio('ingamemusic','/vibes/Dwarven Flight Simulator.mp3');
-	this.load.audio('gitgudorlistentothis','/vibes/Between A Rock and a Steel Helmet.wav');
+	this.load.audio('titlesplash','./vibes/Violet Clouds Candy.wav');
+	this.load.audio('ingamemusic','./vibes/Dwarven Flight Simulator.mp3');
+	this.load.audio('gitgudorlistentothis','./vibes/Between A Rock and a Steel Helmet.wav');
 
 	// rock stuff
-	this.load.image('rock1', '/pix/rock_60.png');
-	this.load.image('rock2', '/pix/rock_120.png');
-	this.load.image('rock3', '/pix/rock_240.png');
+	this.load.image('rock1', './pix/rock_60.png');
+	this.load.image('rock2', './pix/rock_120.png');
+	this.load.image('rock3', './pix/rock_240.png');
 	// bg stuff
-	this.load.image('wall1', '/pix/wall1.png');
-	this.load.image('wall2', '/pix/wall2.png');
-	this.load.image('wall3', '/pix/wall3.png');
-	this.load.image('wall4', '/pix/wall4.png');
+	this.load.image('wall1', './pix/wall1.png');
+	this.load.image('wall2', './pix/wall2.png');
+	this.load.image('wall3', './pix/wall3.png');
+	this.load.image('wall4', './pix/wall4.png');
 
 	// character sprite
-	this.load.image('dwa1', '/pix/dwa1.png');
-	this.load.image('dwa2', '/pix/dwa2.png');
+	this.load.image('dwa1', './pix/dwa1.png');
+	this.load.image('dwa2', './pix/dwa2.png');
 
-	this.load.image('pint1', '/pix/pint1.png');
-	this.load.image('pint2', '/pix/pint2.png');
+	this.load.image('pint1', './pix/pint1.png');
+	this.load.image('pint2', './pix/pint2.png');
 
-	this.load.image('gameover', '/pix/gameover.png');
+	this.load.image('gameover', './pix/gameover.png');
 
-	this.load.image('splash0', '/pix/splash0.png');
-	this.load.image('splash1', '/pix/splash1.png');
-	this.load.image('splash2', '/pix/splash2.png');
-	this.load.image('splash3', '/pix/splash3.png');
-	this.load.image('splash4', '/pix/splash4.png');
-	this.load.image('splash5', '/pix/splash5.png');
-	this.load.image('splash6', '/pix/splash6.png');
-	this.load.image('splash7', '/pix/splash7.png');
-	this.load.image('splash8', '/pix/splash8.png');
-	this.load.image('splash9', '/pix/splash9.png');
-	this.load.image('splash10', '/pix/splash10.png');
-	this.load.image('splash11', '/pix/splash11.png');
-	this.load.image('splash12', '/pix/splash12.png');
+	this.load.image('splash0', './pix/splash0.png');
+	this.load.image('splash1', './pix/splash1.png');
+	this.load.image('splash2', './pix/splash2.png');
+	this.load.image('splash3', './pix/splash3.png');
+	this.load.image('splash4', './pix/splash4.png');
+	this.load.image('splash5', './pix/splash5.png');
+	this.load.image('splash6', './pix/splash6.png');
+	this.load.image('splash7', './pix/splash7.png');
+	this.load.image('splash8', './pix/splash8.png');
+	this.load.image('splash9', './pix/splash9.png');
+	this.load.image('splash10', './pix/splash10.png');
+	this.load.image('splash11', './pix/splash11.png');
+	this.load.image('splash12', './pix/splash12.png');
 
-	this.load.image('ball1', '/pix/ball1.png');
-	this.load.image('ball2', '/pix/ball2.png');
-	this.load.image('ball3', '/pix/ball3.png');
-	this.load.image('ball4', '/pix/ball4.png');
-	this.load.image('ball5', '/pix/ball5.png')
+	this.load.image('ball1', './pix/ball1.png');
+	this.load.image('ball2', './pix/ball2.png');
+	this.load.image('ball3', './pix/ball3.png');
+	this.load.image('ball4', './pix/ball4.png');
+	this.load.image('ball5', './pix/ball5.png')
 	
-	this.load.image('drink1', '/pix/drink1.png');
-	this.load.image('drink2', '/pix/drink2.png');
+	this.load.image('drink1', './pix/drink1.png');
+	this.load.image('drink2', './pix/drink2.png');
 	
-	this.load.image('flax1', '/pix/flax1.png');
-	this.load.image('flax2', '/pix/flax2.png');
+	this.load.image('flax1', './pix/flax1.png');
+	this.load.image('flax2', './pix/flax2.png');
 
-	this.load.image('woosh1', '/pix/woosh1.png');
-	this.load.image('woosh2', '/pix/woosh2.png');
-	this.load.image('woosh3', '/pix/woosh3.png');
+	this.load.image('woosh1', './pix/woosh1.png');
+	this.load.image('woosh2', './pix/woosh2.png');
+	this.load.image('woosh3', './pix/woosh3.png');
 
-	this.load.image('fullscreenButton', '/pix/fullscreen.png');
+	this.load.image('fullscreenButton', './pix/fullscreen.png');
 
 
-	this.load.image('pint_empty', '/pix/pint_empty1.png');
+	this.load.image('pint_empty', './pix/pint_empty1.png');
 
 	// hitboxes n stuff
-	this.load.image('dwa_hitbox', '/pix/dwa_hitbox.png');
-	this.load.image('rock3_hitbox', '/pix/rock_240_hitbox.png');
-	this.load.image('rock2_hitbox', '/pix/rock_120_hitbox.png');
-	this.load.image('rock1_hitbox', '/pix/rock_60_hitbox.png');
+	this.load.image('dwa_hitbox', './pix/dwa_hitbox.png');
+	this.load.image('rock3_hitbox', './pix/rock_240_hitbox.png');
+	this.load.image('rock2_hitbox', './pix/rock_120_hitbox.png');
+	this.load.image('rock1_hitbox', './pix/rock_60_hitbox.png');
 
 	this.load.image('pBarBack', 'pix/pBarBack.png');
 	this.load.image('pBar', 'pix/pBar.png');
