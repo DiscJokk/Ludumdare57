@@ -24,7 +24,7 @@ Go to the promise land
 
 const isDebug = false;
 
-const framerate = 12;
+const framerate = 20;
 const fallSpeed = 10;
 const despawn = -300;
 
