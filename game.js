@@ -145,8 +145,8 @@ function preload() {
 	this.load.image('rock2_hitbox', './pix/rock_120_hitbox.png');
 	this.load.image('rock1_hitbox', './pix/rock_60_hitbox.png');
 
-	this.load.image('pBarBack', 'pix/pBarBack.png');
-	this.load.image('pBar', 'pix/pBar.png');
+	this.load.image('pBarBack', './pix/pBarBack.png');
+	this.load.image('pBar', './pix/pBar.png');
 }
 
 function create() {
