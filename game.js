@@ -260,6 +260,9 @@ function create() {
 	keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
 
 	keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+	
+	beer = this.physics.add.sprite(Math.ceil(Math.random() * 600) + 1600, Math.ceil(Math.random() * 1800), 'pint1');
+	beer.anims.play('pint');
 
 	rock1 = this.physics.add.sprite(Math.ceil(Math.random() * 22000) + 600, Math.ceil(Math.random() * 800), 'rock1');
 	rock2 = this.physics.add.sprite(Math.ceil(Math.random() * 22000) + 600, Math.ceil(Math.random() * 800), 'rock2');
@@ -287,8 +290,7 @@ function create() {
 	rock3Hitbox.setVisible(isDebug);
 	playerHitbox.setVisible(isDebug);
 
-	beer = this.physics.add.sprite(Math.ceil(Math.random() * 600) + 1600, Math.ceil(Math.random() * 1800), 'pint1');
-	beer.anims.play('pint');
+
 
 	emptyBeer = this.physics.add.sprite(-300, -300, 'pint_empty');
 
