@@ -286,7 +286,7 @@ function create() {
 	rock3Hitbox.setVisible(isDebug);
 	playerHitbox.setVisible(isDebug);
 
-	beer = this.physics.add.sprite(Math.ceil(Math.random() * 600) + 600, Math.ceil(Math.random() * 800), 'pint1');
+	beer = this.physics.add.sprite(Math.ceil(Math.random() * 600) + 1600, Math.ceil(Math.random() * 1800), 'pint1');
 	beer.anims.play('pint');
 
 	emptyBeer = this.physics.add.sprite(-300, -300, 'pint_empty');
