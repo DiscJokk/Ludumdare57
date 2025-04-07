@@ -38,6 +38,7 @@ let flaxFlag = false;
 let depth = 0;
 let hasRestartListener = false;
 let isReset = false;
+let isGunkPlaying = false;
 
 const config = {
 	type: Phaser.AUTO,
@@ -433,12 +434,16 @@ function update() {
 		
 		if (cursors.left.isDown) {
 			restoreChugging();
+			this.gungk.stop();
+			isGunkPlaying = false;
 			player.setFlipX(true);
 			player.setVelocityX(-300);
 			woosh.rotation = 0.15
 		} else if (cursors.right.isDown) {
 			restoreChugging();
 			woosh.rotation = -0.15
+			this.gungk.stop();
+			isGunkPlaying = false;
 			player.setFlipX(false);
 			player.setVelocityX(300);
 		} else {
@@ -448,6 +453,15 @@ function update() {
 
 		if (isChugging) {
 			p = p < pMax ? p + pBoostDrink : pMax;
+			this.gungk.detune += 1;
+			if (!isGunkPlaying) {
+				this.gungk.play({ 
+					loop: true
+				});
+				isGunkPlaying = true;
+			}
+		} else {
+			this.gungk.detune = 0;
 		}
 
 		if (!isFlaxxing && !isGameOver) {
@@ -590,6 +604,7 @@ function hitObstacle(player, stone1) {
 		console.log("COLITION DETECTED!!!", collitionCounter++)
 	} else {
 		// Basic reaction for now — stop everything
+		this.gungk.stop();
 		isGameOver = true;
 		this.gameover.visible = true;
 		this.finalScore.setText("Final Score:\n" + depth);
@@ -597,13 +612,5 @@ function hitObstacle(player, stone1) {
 		this.physics.pause();
 		player.setTint(0xff0000);
 		console.log("💥 You hit an obstacle!");
-	}
-}
-
-function playChuggingSound() {
-	// TODO figure out how to do the pitch thing.
-	// this is probably wrong... but it is a start :)
-	while(isChugging) {
-		this.gungk.play();
 	}
 }
