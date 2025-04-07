@@ -50,6 +50,13 @@ const config = {
 			debug: false
 		}
 	},
+	scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    },
+	render: {
+		pixelArt: true
+	},
 	scene: {
 		preload,
 		create,
@@ -125,6 +132,9 @@ function preload() {
 	this.load.image('woosh1', '/pix/woosh1.png');
 	this.load.image('woosh2', '/pix/woosh2.png');
 	this.load.image('woosh3', '/pix/woosh3.png');
+
+	this.load.image('fullscreenButton', '/pix/fullscreen.png');
+
 
 	this.load.image('pint_empty', '/pix/pint_empty1.png');
 
@@ -248,6 +258,9 @@ function create() {
 	rock2 = this.physics.add.sprite(Math.ceil(Math.random() * 22000) + 600, Math.ceil(Math.random() * 800), 'rock2');
 	rock3 = this.physics.add.sprite(Math.ceil(Math.random() * 22000) + 600, Math.ceil(Math.random() * 800), 'rock3');
 
+
+	
+
 	rock1Hitbox = this.physics.add.sprite(0, 0, 'rock1_hitbox');
 	rock2Hitbox = this.physics.add.sprite(0, 0, 'rock2_hitbox');
 	rock3Hitbox = this.physics.add.sprite(0, 0, 'rock3_hitbox');
@@ -311,6 +324,20 @@ function create() {
 	// Set the origin to the center horizontally
 	this.finalScore.setOrigin(0.5, 0.5);
 	this.finalScore.visible = false;
+
+	
+    // Add the fullscreen button to the upper right corner
+    fullscreenButton = this.add.sprite(config.width - 10, 10, 'fullscreenButton').setInteractive();
+    fullscreenButton.setOrigin(1, 0); // Set origin to upper right corner
+
+    // Add pointer down event to the button
+    fullscreenButton.on('pointerdown', function () {
+        if (this.scale.isFullscreen) {
+            this.scale.stopFullscreen();
+        } else {
+            this.scale.startFullscreen();
+        }
+    }, this);
 
 	this.splash0 = this.physics.add.sprite(400, 300, 'splash0');
 
