@@ -402,7 +402,10 @@ function update() {
 
 	if (splashPhase == 0) {
 		if (!isTitlesplashPlaying) {
-			this.titlesplash.play({volume: mainVolume});
+			this.titlesplash.play({
+				volume: mainVolume,
+				loop: true
+			});
 			isTitlesplashPlaying = true;
 		}
 		this.input.keyboard.on('keydown', (event) => {
