@@ -27,6 +27,7 @@ const isDebug = false;
 const framerate = 20;
 const fallSpeed = 10;
 const despawn = -300;
+const mainVolume = 0.7;
 
 let isChugging = false;
 let isFlaxxing = false;
@@ -401,7 +402,7 @@ function update() {
 
 	if (splashPhase == 0) {
 		if (!isTitlesplashPlaying) {
-			this.titlesplash.play();
+			this.titlesplash.play({volume: mainVolume});
 			isTitlesplashPlaying = true;
 		}
 		this.input.keyboard.on('keydown', (event) => {
@@ -411,7 +412,7 @@ function update() {
 				}
 				this.splash0.visible = false;
 				this.splash.anims.play('splash');
-				this.putt.play();
+				this.putt.play({volume: mainVolume});
 			}
 		});
 
@@ -440,7 +441,8 @@ function update() {
 	if (splashPhase == 3) {
 		if (!isIngamemusicPlaying) {
 			this.ingamemusic.play({
-				loop: true
+				loop: true,
+				volume: mainVolume
 			});
 			isIngamemusicPlaying = true;
 		}
@@ -475,7 +477,8 @@ function update() {
 			this.gungk.detune += 2;
 			if (!isGunkPlaying) {
 				this.gungk.play({ 
-					loop: true
+					loop: true,
+					volume: mainVolume
 				});
 				isGunkPlaying = true;
 			}
@@ -508,7 +511,8 @@ function update() {
 			p = p > 0 ? p - pCostFlax : 0;
 			if (!isFlaxxPlaying) {
 				this.flaxxx.play({ 
-					loop: true
+					loop: true,
+					volume: mainVolume
 				});
 				isFlaxxPlaying = true;
 			 }
@@ -643,7 +647,7 @@ function hitObstacle(player, stone1) {
 		this.gungk.stop();
 		this.ingamemusic.stop();
 		isIngamemusicPlaying = false;
-		this.dwarfpate.play();
+		this.dwarfpate.play({volume: mainVolume});
 		isGameOver = true;
 		this.gameover.visible = true;
 		this.finalScore.setText("Final Score:\n" + depth);
@@ -652,7 +656,7 @@ function hitObstacle(player, stone1) {
 		player.setTint(0xff0000);
 		console.log("💥 You hit an obstacle!");
 		this.time.delayedCall(500, () => {
-			this.gitgudorlistentothis.play({loop: true});
+			this.gitgudorlistentothis.play({loop: true, volume: mainVolume});
 			isGitgudorlistentothisPlaying = true;
 		  }, [], this);
 	}
