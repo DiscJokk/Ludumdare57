@@ -486,16 +486,16 @@ function update() {
 			}
 		}
 
-		if (isFlaxxing && !isDebug) {
+		if (isFlaxxing && !isDebug && !isGameOver) {
 			p = p > 0 ? p - pCostFlax : 0;
-			if (!isFlaxxPlaying && !isGameOver) { 
+			if (!isFlaxxPlaying) {
 				this.flaxxx.play({ 
 					loop: true
 				});
 				isFlaxxPlaying = true;
 			 }
 		}
-		
+
 		if (keyF.isDown && isDrunk) {
 			if (player.anims.currentAnim?.key !== 'flax') {
 				player.anims.play('flax');
@@ -518,7 +518,8 @@ function update() {
 		
 	}
 
-	if (isGameOver) {	
+	if (isGameOver) {
+		this.flaxxx.stop();
 		if (keyR.isDown) {
 			resetGame.call(this);
 		};
@@ -619,6 +620,7 @@ function hitObstacle(player, stone1) {
 	} else {
 		// Basic reaction for now — stop everything
 		this.gungk.stop();
+		this.dwarfpate.play();
 		isGameOver = true;
 		this.gameover.visible = true;
 		this.finalScore.setText("Final Score:\n" + depth);
