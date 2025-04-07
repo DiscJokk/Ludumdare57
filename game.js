@@ -40,6 +40,9 @@ let hasRestartListener = false;
 let isReset = false;
 let isGunkPlaying = false;
 let isFlaxxPlaying = false;
+let isTitlesplashPlaying = false;
+let isIngamemusicPlaying = false;
+let isGitgudorlistentothisPlaying = false;
 
 const config = {
 	type: Phaser.AUTO,
@@ -396,8 +399,15 @@ function update() {
 	}
 
 	if (splashPhase == 0) {
+		if (!isTitlesplashPlaying) {
+			this.titlesplash.play();
+			isTitlesplashPlaying = true;
+		}
 		this.input.keyboard.on('keydown', (event) => {
 			if (splashPhase == 0) {
+				if (isTitlesplashPlaying) {
+					this.titlesplash.stop();
+				}
 				this.splash0.visible = false;
 				this.splash.anims.play('splash');
 				this.putt.play();
@@ -415,6 +425,7 @@ function update() {
 	}
 
 	if (splashPhase == 1) {
+		isTitlesplashPlaying = false;
 		player.anims.play('ball');
 		splashPhase = 2;
 	}
@@ -426,6 +437,12 @@ function update() {
 	}
 
 	if (splashPhase == 3) {
+		if (!isIngamemusicPlaying) {
+			this.ingamemusic.play({
+				loop: true
+			});
+			isIngamemusicPlaying = true;
+		}
 		player.anims.play('dwa');
 		splashPhase = 4;
 	}
@@ -534,9 +551,12 @@ function resetGame() {
 	isSplashing = true;
 	isBalling = false;
 	flaxFlag = false;
+	isGitgudorlistentothisPlaying = false;
 	depth = 0;
 	p = pMax;
 	isDrunk = true;
+
+	this.gitgudorlistentothis.stop();
 
 	dephChounter.setText('Depth: 0');
 	pChounter.setText('P: ' + p.toFixed(2) + '/' + pMax);
@@ -620,6 +640,8 @@ function hitObstacle(player, stone1) {
 	} else {
 		// Basic reaction for now — stop everything
 		this.gungk.stop();
+		this.ingamemusic.stop();
+		isIngamemusicPlaying = false;
 		this.dwarfpate.play();
 		isGameOver = true;
 		this.gameover.visible = true;
@@ -628,5 +650,9 @@ function hitObstacle(player, stone1) {
 		this.physics.pause();
 		player.setTint(0xff0000);
 		console.log("💥 You hit an obstacle!");
+		this.time.delayedCall(500, () => {
+			this.gitgudorlistentothis.play({loop: true});
+			isGitgudorlistentothisPlaying = true;
+		  }, [], this);
 	}
 }
