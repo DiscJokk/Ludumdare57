@@ -453,7 +453,7 @@ function update() {
 
 		if (isChugging) {
 			p = p < pMax ? p + pBoostDrink : pMax;
-			this.gungk.detune += 1;
+			this.gungk.detune += 2;
 			if (!isGunkPlaying) {
 				this.gungk.play({ 
 					loop: true
