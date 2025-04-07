@@ -75,7 +75,7 @@ const game = new Phaser.Game(config);
 let player, cursors, stone1, stone2, stone3;
 const pMax = 10;
 const pCostFlax = 0.02;
-const pBoostDrink = 0.04;
+const pBoostDrink = 0.01;
 let p = pMax;
 let isDrunk = true;
 
@@ -475,7 +475,7 @@ function update() {
 			woosh.rotation = 0.0
 		}
 
-		if (isChugging) {
+		if (isChugging && !isGameOver) {
 			p = p < pMax ? p + pBoostDrink : pMax;
 			this.gungk.detune += 2;
 			if (!isGunkPlaying) {
@@ -485,7 +485,7 @@ function update() {
 				});
 				isGunkPlaying = true;
 			}
-		} else {
+		} else if (!isGameOver) {
 			this.gungk.detune = 0;
 		}
 
