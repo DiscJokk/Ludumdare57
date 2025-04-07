@@ -39,6 +39,7 @@ let depth = 0;
 let hasRestartListener = false;
 let isReset = false;
 let isGunkPlaying = false;
+let isFlaxxPlaying = false;
 
 const config = {
 	type: Phaser.AUTO,
@@ -478,8 +479,21 @@ function update() {
 			}
 		}
 
+		if (!isFlaxxing){
+			if (isFlaxxPlaying) {
+				this.flaxxx.stop();
+				isFlaxxPlaying = false;
+			}
+		}
+
 		if (isFlaxxing && !isDebug) {
 			p = p > 0 ? p - pCostFlax : 0;
+			if (!isFlaxxPlaying && !isGameOver) { 
+				this.flaxxx.play({ 
+					loop: true
+				});
+				isFlaxxPlaying = true;
+			 }
 		}
 		
 		if (keyF.isDown && isDrunk) {
