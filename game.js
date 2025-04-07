@@ -636,12 +636,13 @@ function doRockStuffs(){
 }
 
 function drinkBeer(){
-	// if collide, remove drink no matter what!.
-	beer.x += 900
+
 
 	if (!keyF.isDown){
 		player.anims.play('drink');
 		isChugging = true;
+		// if collide, remove drink!.
+		beer.x += 900
 	}
 }
 let collitionCounter = 0;
