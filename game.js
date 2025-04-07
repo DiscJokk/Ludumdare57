@@ -24,7 +24,7 @@ Go to the promise land
 
 const isDebug = false;
 
-const framerate = 4;
+const framerate = 12;
 const fallSpeed = 10;
 const despawn = -300;
 
@@ -158,35 +158,35 @@ function create() {
 	this.anims.create({
 		key: 'background',
 		frames: [{key: 'wall1'}, {key: 'wall2'}, {key: 'wall3'}, {key: 'wall4'}],
-		framerate: framerate,
+		frameRate: framerate,
 		repeat: -1
 	});
 
 	this.anims.create({
 		key: 'pint',
 		frames: [{key: 'pint1'},{key: 'pint2'}],
-		framerate: framerate,
+		frameRate: framerate/2,
 		repeat: -1
 	});
 
 	this.anims.create({
 		key: 'flax',
 		frames: [{key: 'flax1'}, {key: 'flax2'}],
-		framerate: framerate,
+		frameRate: framerate,
 		repeat: -1
 	});
 
 	this.anims.create({
 		key: 'dwa',
 		frames: [{key: 'dwa1'},{key: 'dwa2'}],
-		framerate: framerate,
+		frameRate: framerate,
 		repeat: -1
 	});
 
 	this.anims.create({
 		key: 'drink',
 		frames: [{key: 'drink1'}, {key: 'drink2'}],
-		framerate: framerate,
+		frameRate: framerate,
 		repeat: -1
 	});
 
@@ -197,7 +197,7 @@ function create() {
 			{key: 'woosh2'},
 			{key: 'woosh3'},
 		],
-		framerate: framerate,
+		frameRate: framerate,
 		repeat: -1
 	});
 
@@ -218,7 +218,7 @@ function create() {
 			{key: 'splash11'},
 			{key: 'splash12'},
 		],
-		framerate: framerate,
+		frameRate: framerate,
 		repeat: 0
 	});
 
@@ -234,7 +234,7 @@ function create() {
 			{key: 'ball4'},
 			{key: 'ball5'},
 		],
-		framerate: framerate,
+		frameRate: framerate,
 		repeat: 0
 	});
 
@@ -287,6 +287,7 @@ function create() {
 	playerHitbox.setVisible(isDebug);
 
 	beer = this.physics.add.sprite(Math.ceil(Math.random() * 600) + 600, Math.ceil(Math.random() * 800), 'pint1');
+	beer.anims.play('pint');
 
 	emptyBeer = this.physics.add.sprite(-300, -300, 'pint_empty');
 
