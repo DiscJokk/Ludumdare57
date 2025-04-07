@@ -122,6 +122,10 @@ function preload() {
 	this.load.image('flax1', '/pix/flax1.png');
 	this.load.image('flax2', '/pix/flax2.png');
 
+	this.load.image('woosh1', '/pix/woosh1.png');
+	this.load.image('woosh2', '/pix/woosh2.png');
+	this.load.image('woosh3', '/pix/woosh3.png');
+
 	this.load.image('pint_empty', '/pix/pint_empty1.png');
 
 	// hitboxes n stuff
@@ -171,6 +175,17 @@ function create() {
 		repeat: -1
 	});
 
+	this.anims.create({
+		key: 'woosh',
+		frames: [
+			{key: 'woosh1'},
+			{key: 'woosh2'},
+			{key: 'woosh3'},
+		],
+		framerate: framerate,
+		repeat: -1
+	});
+
 
 	this.anims.create({
 		key: 'splash',
@@ -212,8 +227,13 @@ function create() {
 	this.background.anims.play('background');
 
 	// Create a smaller invisable hitbox for the dwarf
+	woosh = this.physics.add.sprite(400, 150, 'woosh1');
+	woosh.anims.play('woosh');
 	player = this.physics.add.sprite(400, 150, 'ball4').setImmovable(true);
 	player.body.allowGravity = false;
+
+
+
 	// TODO check this out
 	player.setCollideWorldBounds(true);
 	playerHitbox = this.physics.add.sprite(400, 150, 'dwa_hitbox');
@@ -314,6 +334,9 @@ function create() {
 function update() {
 
 	// console.log("splashPhase: ", splashPhase);
+	woosh.x = player.x;
+	woosh.y = player.y - 50;
+
 	playerHitbox.x = player.x;
 	playerHitbox.y = player.y;
 
@@ -384,12 +407,15 @@ function update() {
 			restoreChugging();
 			player.setFlipX(true);
 			player.setVelocityX(-300);
+			woosh.rotation = 0.15
 		} else if (cursors.right.isDown) {
 			restoreChugging();
+			woosh.rotation = -0.15
 			player.setFlipX(false);
 			player.setVelocityX(300);
 		} else {
 			player.setVelocityX(0);
+			woosh.rotation = 0.0
 		}
 
 		if (isChugging) {
@@ -423,8 +449,10 @@ function update() {
 				flaxFlag = true;
 			}
 			isFlaxxing = true;
+			woosh.visible = false;
 		} else {
 			isFlaxxing = false;
+			woosh.visible = true;
 		}
 
 		isDrunk = p > 0;
