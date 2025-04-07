@@ -27,7 +27,7 @@ const isDebug = false;
 const framerate = 20;
 const fallSpeed = 10;
 const despawn = -300;
-const mainVolume = 0.7;
+const mainVolume = 0.4;
 
 let isChugging = false;
 let isFlaxxing = false;
